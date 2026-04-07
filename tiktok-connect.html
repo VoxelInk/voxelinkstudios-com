@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect TikTok - VoxelInk Studios Creator Tools</title>
+  <meta name="description" content="Connect your TikTok account to schedule and publish your content with VoxelInk Studios creator tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .connect-page {
+      min-height: 100vh;
+      background: #0f0f19;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .connect-card {
+      background: #1a1a2e;
+      border: 1px solid #2a2a4a;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .connect-logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.85rem;
+      color: #4ade80;
+      margin-bottom: 2rem;
+      display: block;
+    }
+    .connect-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+    .connect-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #9ca3af;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+    .btn-tiktok {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: #ffffff;
+      color: #000000;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-tiktok:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+    }
+    .btn-tiktok svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .connect-features {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: left;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      color: #d1d5db;
+    }
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .connect-divider {
+      border: none;
+      border-top: 1px solid #2a2a4a;
+      margin: 2rem 0;
+    }
+    .connect-footer {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .connect-footer a {
+      color: #4ade80;
+      text-decoration: none;
+    }
+    .platform-badges {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      background: #2a2a4a;
+      color: #9ca3af;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+    }
+    .badge.active {
+      background: #14532d;
+      color: #4ade80;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <span class="logo-pixel">▓</span> VoxelInk Studios
+      </a>
+    </div>
+  </nav>
+
+  <div class="connect-page">
+    <div class="connect-card">
+      <span class="connect-logo">Creator Tools</span>
+
+      <h1 class="connect-title">Connect Your TikTok</h1>
+      <p class="connect-sub">
+        Link your TikTok account to schedule, publish, and manage your short-form video content - all in one place.
+      </p>
+
+      <div class="platform-badges">
+        <span class="badge active">TikTok</span>
+        <span class="badge">Instagram</span>
+        <span class="badge">YouTube</span>
+        <span class="badge">Facebook</span>
+      </div>
+
+      <a id="tiktok-auth-btn" class="btn-tiktok" href="#" onclick="startTikTokAuth(); return false;">
+        <!-- TikTok logo -->
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+        </svg>
+        Continue with TikTok
+      </a>
+
+      <div class="connect-features">
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Schedule posts in advance
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Publish videos directly to your TikTok profile
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          Works with your existing TikTok account
+        </div>
+        <div class="feature-item">
+          <span class="feature-dot"></span>
+          No TikTok password shared - secure OAuth login
+        </div>
+      </div>
+
+      <hr class="connect-divider" />
+
+      <p class="connect-footer">
+        By connecting your account you agree to our
+        <a href="terms.html">Terms of Service</a> and
+        <a href="privacy-policy.html">Privacy Policy</a>.
+        We only request permissions needed to publish content on your behalf.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // TikTok OAuth configuration
+    // Replace TIKTOK_CLIENT_KEY with your actual client key from TikTok Developer Portal
+    const TIKTOK_CLIENT_KEY = 'awhmlua2xxzcszqp';
+    const REDIRECT_URI = encodeURIComponent('https://voxelinkstudios.com/tiktok-callback.html');
+    const SCOPES = encodeURIComponent('user.info.basic,video.publish,video.upload');
+
+    function startTikTokAuth() {
+      const state = Math.random().toString(36).substring(2, 15);
+      sessionStorage.setItem('tiktok_state', state);
+
+      const authUrl = `https://www.tiktok.com/v2/auth/authorize/?` +
+        `client_key=${TIKTOK_CLIENT_KEY}` +
+        `&response_type=code` +
+        `&scope=${SCOPES}` +
+        `&redirect_uri=${REDIRECT_URI}` +
+        `&state=${state}`;
+
+      window.location.href = authUrl;
+    }
+  </script>
+</body>
+</html>

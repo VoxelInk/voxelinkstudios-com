@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connecting TikTok - VoxelInk Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .callback-page {
+      min-height: 100vh;
+      background: #0f0f19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .callback-card {
+      background: #1a1a2e;
+      border: 1px solid #2a2a4a;
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    .status-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .callback-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+    .callback-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #2a2a4a;
+      border-top-color: #4ade80;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .success { color: #4ade80; }
+    .error { color: #f87171; }
+    .btn-home {
+      display: inline-block;
+      background: #4ade80;
+      color: #000;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="callback-page">
+    <div class="callback-card" id="card">
+      <div class="spinner" id="spinner"></div>
+      <h1 class="callback-title" id="title">Connecting your TikTok...</h1>
+      <p class="callback-sub" id="sub">Please wait while we complete the authorization.</p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    const error = params.get('error');
+    const savedState = sessionStorage.getItem('tiktok_state');
+
+    const spinner = document.getElementById('spinner');
+    const title = document.getElementById('title');
+    const sub = document.getElementById('sub');
+
+    if (error) {
+      spinner.style.display = 'none';
+      title.innerHTML = '<span class="error">Connection cancelled</span>';
+      sub.textContent = 'You cancelled the TikTok authorization. You can try again anytime.';
+      sub.insertAdjacentHTML('afterend', '<a href="tiktok-connect.html" class="btn-home">Try Again</a>');
+    } else if (code && state === savedState) {
+      spinner.style.display = 'none';
+      title.innerHTML = '<span class="success">TikTok Connected!</span>';
+      sub.textContent = 'Your TikTok account has been successfully linked. You can now publish content directly from VoxelInk Studios tools.';
+      sessionStorage.removeItem('tiktok_state');
+    } else if (code) {
+      spinner.style.display = 'none';
+      title.innerHTML = '<span class="success">TikTok Connected!</span>';
+      sub.textContent = 'Your TikTok account has been successfully linked.';
+    } else {
+      spinner.style.display = 'none';
+      title.innerHTML = '<span class="error">Something went wrong</span>';
+      sub.textContent = 'We could not complete the connection. Please try again.';
+      sub.insertAdjacentHTML('afterend', '<a href="tiktok-connect.html" class="btn-home">Try Again</a>');
+    }
+  </script>
+</body>
+</html>
