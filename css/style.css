@@ -90,6 +90,21 @@ img { max-width: 100%; display: block; }
   text-align: center;
 }
 
+.btn-coming-soon {
+  background: #cccccc;
+  color: #666666;
+  font-size: 0.85rem;
+  padding: 10px 18px;
+  width: 100%;
+  text-align: center;
+  cursor: default;
+  pointer-events: none;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
+}
+
 .btn-etsy {
   background: transparent;
   color: #f1641e;
