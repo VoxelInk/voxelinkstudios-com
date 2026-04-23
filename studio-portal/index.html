@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Squishy Pals Studio ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+      --pink: #FF8FAB;
+      --lavender: #C9A9E9;
+      --mint: #9EDEC8;
+      --peach: #FFB997;
+      --yellow: #FFE066;
+      --bg: #FFF0F8;
+      --card: #FFFFFF;
+      --text: #4A3060;
+      --shadow: rgba(180, 100, 160, 0.15);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── PASSWORD SCREEN ─── */
+    #lock-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #FFD6E8 0%, #E8D4F5 50%, #C8EEE5 100%);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .lock-dumpling {
+      font-size: 7rem;
+      margin-bottom: 1rem;
+      animation: bounce 2s ease-in-out infinite;
+      filter: drop-shadow(0 8px 16px rgba(200,100,180,0.3));
+      line-height: 1;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .lock-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #8B3A6B;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 2px 8px rgba(200,100,180,0.2);
+    }
+
+    .lock-subtitle {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #B06090;
+      margin-bottom: 2rem;
+    }
+
+    .lock-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .lock-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1.4rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-align: center;
+      text-transform: uppercase;
+      border: 3px solid #E8A0C8;
+      border-radius: 50px;
+      background: white;
+      color: var(--text);
+      outline: none;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .lock-input:focus {
+      border-color: var(--lavender);
+      box-shadow: 0 4px 24px rgba(180, 120, 220, 0.3);
+    }
+
+    .lock-btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--lavender));
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(200, 100, 180, 0.4);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .lock-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 3px 12px rgba(200, 100, 180, 0.3);
+    }
+
+    .lock-error {
+      color: #D04060;
+      font-weight: 700;
+      font-size: 1rem;
+      display: none;
+    }
+
+    /* ─── MAIN PORTAL ─── */
+    #main-portal { display: none; }
+
+    .portal-header {
+      background: linear-gradient(135deg, #FF8FAB, #C9A9E9);
+      padding: 1.5rem 1.5rem 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(200, 100, 180, 0.25);
+    }
+
+    .portal-header h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: white;
+      text-shadow: 0 2px 8px rgba(100, 40, 80, 0.25);
+    }
+
+    .portal-header p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+    }
+
+    .progress-track {
+      width: 120px;
+      height: 8px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: white;
+      border-radius: 50px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    .portal-content {
+      padding: 1.5rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ─── CHARACTER CARDS ─── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+
+    @media (min-width: 600px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .char-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 3px solid transparent;
+    }
+
+    .char-card.voted-love   { border-color: #FF8FAB; background: #FFF5F8; }
+    .char-card.voted-retry  { border-color: #FFB997; background: #FFF8F5; }
+    .char-card.voted-change { border-color: #C9A9E9; background: #F8F5FF; }
+
+    .card-img-wrap {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #F5EEF8;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 1.8rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+      display: none;
+    }
+
+    .char-card.voted-love   .card-badge { display: block; }
+    .char-card.voted-retry  .card-badge { display: block; }
+    .char-card.voted-change .card-badge { display: block; }
+
+    .card-body {
+      padding: 0.75rem;
+    }
+
+    .card-name {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .vote-btns {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: center;
+    }
+
+    .vote-btn {
+      flex: 1;
+      padding: 0.5rem 0.2rem;
+      font-size: 1.2rem;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      background: #F5EEF8;
+      cursor: pointer;
+      transition: all 0.15s;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vote-btn:active { transform: scale(0.93); }
+
+    .vote-btn.btn-love   { background: #FFE8F0; }
+    .vote-btn.btn-retry  { background: #FFE8D8; }
+    .vote-btn.btn-change { background: #EEE0FF; }
+
+    .vote-btn.btn-love.active   { background: #FF8FAB; border-color: #D0607A; box-shadow: 0 3px 10px rgba(255,100,150,0.4); }
+    .vote-btn.btn-retry.active  { background: #FF9966; border-color: #D06030; box-shadow: 0 3px 10px rgba(255,120,80,0.4); }
+    .vote-btn.btn-change.active { background: #C9A9E9; border-color: #8060B0; box-shadow: 0 3px 10px rgba(150,100,220,0.4); }
+
+    .note-area {
+      margin-top: 0.6rem;
+      width: 100%;
+      padding: 0.5rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 2px solid #E8D0F0;
+      border-radius: 10px;
+      background: #FAF5FF;
+      color: var(--text);
+      resize: none;
+      outline: none;
+      display: none;
+      min-height: 60px;
+    }
+
+    .note-area:focus { border-color: var(--lavender); }
+
+    /* ─── SUBMIT SECTION ─── */
+    .submit-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 4px 20px var(--shadow);
+      text-align: center;
+    }
+
+    .submit-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .submit-count {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #B06090;
+      margin-bottom: 1.2rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.1rem;
+      font-size: 1.2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #FF8FAB, #C9A9E9);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(200, 100, 180, 0.4);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.97);
+    }
+
+    .submit-btn:disabled {
+      background: #D0C0D8;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* ─── SUCCESS SCREEN ─── */
+    #success-screen {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #FFD6E8, #E8D4F5, #C8EEE5);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .success-emoji {
+      font-size: 6rem;
+      animation: pop 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+      margin-bottom: 1rem;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.3); opacity: 0; }
+      80% { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .success-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #8B3A6B;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-msg {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #B06090;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    .stars {
+      margin: 1.5rem 0;
+      font-size: 2rem;
+      letter-spacing: 0.3rem;
+    }
+
+    .back-btn {
+      margin-top: 1.5rem;
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      color: #8B3A6B;
+      background: white;
+      border: 3px solid #E8A0C8;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px var(--shadow);
+    }
+
+    /* ─── LOADING STATE ─── */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ PASSWORD SCREEN ═══════════ -->
+<div id="lock-screen">
+  <div class="lock-dumpling">🥟</div>
+  <h1 class="lock-title">Squishy Pals Studio</h1>
+  <p class="lock-subtitle">Art Director's Portal ✨</p>
+  <form class="lock-form" onsubmit="checkPassword(event)">
+    <input
+      class="lock-input"
+      id="pw-input"
+      type="password"
+      placeholder="Secret Word"
+      autocomplete="off"
+      autofocus
+    />
+    <button class="lock-btn" type="submit">Let me in! 🌟</button>
+    <span class="lock-error" id="pw-error">Try again! 🙈</span>
+  </form>
+</div>
+
+<!-- ═══════════ MAIN PORTAL ═══════════ -->
+<div id="main-portal">
+  <div class="portal-header">
+    <h1>🥟 Squishy Pals Studio</h1>
+    <p>Pick what you love and what needs a fix!</p>
+    <div class="progress-bar">
+      <span class="progress-text" id="progress-text">0 of 30 reviewed</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal-content">
+    <div class="cards-grid" id="cards-grid">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <div class="submit-section">
+      <p class="submit-title">Ready to send to Mom? 💌</p>
+      <p class="submit-count" id="submit-count">Review some art first!</p>
+      <button class="submit-btn" id="submit-btn" onclick="submitReview()" disabled>
+        Send My Review! 🚀
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SUCCESS SCREEN ═══════════ -->
+<div id="success-screen" style="display:flex; display:none;">
+  <div class="success-emoji">🎉</div>
+  <h1 class="success-title">Review Sent!</h1>
+  <div class="stars">⭐️⭐️⭐️⭐️⭐️</div>
+  <p class="success-msg">Amazing work, Art Director!<br>Mom got your notes and is on it! 🥟💕</p>
+  <button class="back-btn" onclick="resetPortal()">Review more art 🎨</button>
+</div>
+
+<script>
+const PASSWORD = "DUMPLING";
+
+const CHARACTERS = [
+  { id: "dumpling",    name: "The Dumpling",     emoji: "🥟" },
+  { id: "cat",         name: "Squishy Cat",       emoji: "🐱" },
+  { id: "bunny",       name: "Squishy Bunny",     emoji: "🐰" },
+  { id: "bear",        name: "Squishy Bear",      emoji: "🐻" },
+  { id: "dog",         name: "Squishy Dog",       emoji: "🐶" },
+  { id: "panda",       name: "Squishy Panda",     emoji: "🐼" },
+  { id: "fox",         name: "Squishy Fox",       emoji: "🦊" },
+  { id: "unicorn",     name: "Squishy Unicorn",   emoji: "🦄" },
+  { id: "dragon",      name: "Baby Dragon",       emoji: "🐲" },
+  { id: "mermaid",     name: "Squishy Mermaid",   emoji: "🧜" },
+  { id: "fairy",       name: "Squishy Fairy",     emoji: "🧚" },
+  { id: "phoenix",     name: "Squishy Phoenix",   emoji: "🔥" },
+  { id: "griffin",     name: "Squishy Griffin",   emoji: "🦅" },
+  { id: "strawberry",  name: "Squishy Strawberry",emoji: "🍓" },
+  { id: "ice-cream",   name: "Ice Cream Cone",    emoji: "🍦" },
+  { id: "avocado",     name: "Squishy Avocado",   emoji: "🥑" },
+  { id: "donut",       name: "Squishy Donut",     emoji: "🍩" },
+  { id: "boba-tea",    name: "Boba Tea",          emoji: "🧋" },
+  { id: "axolotl",     name: "Squishy Axolotl",   emoji: "🦎" },
+  { id: "jellyfish",   name: "Squishy Jellyfish",  emoji: "🪼" },
+  { id: "whale",       name: "Squishy Whale",     emoji: "🐳" },
+  { id: "octopus",     name: "Squishy Octopus",   emoji: "🐙" },
+  { id: "crab",        name: "Squishy Crab",      emoji: "🦀" },
+  { id: "seahorse",    name: "Squishy Seahorse",  emoji: "🌊" },
+  { id: "cloud",       name: "Squishy Cloud",     emoji: "☁️" },
+  { id: "mushroom",    name: "Squishy Mushroom",  emoji: "🍄" },
+  { id: "alien",       name: "Squishy Alien",     emoji: "👽" },
+  { id: "planet",      name: "Squishy Planet",    emoji: "🪐" },
+  { id: "template",    name: "Design Your Own!",  emoji: "✏️" },
+  { id: "squad-scene", name: "Squishy Squad",     emoji: "🌟" },
+];
+
+const votes = {};
+const notes = {};
+
+function checkPassword(e) {
+  e.preventDefault();
+  const val = document.getElementById('pw-input').value.trim().toUpperCase();
+  if (val === PASSWORD) {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('main-portal').style.display = 'block';
+    buildCards();
+  } else {
+    const err = document.getElementById('pw-error');
+    err.style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    err.animate([{opacity:0},{opacity:1},{opacity:0}], {duration:2000, fill:'forwards'});
+  }
+}
+
+function buildCards() {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = '';
+  CHARACTERS.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'char-card';
+    card.id = `card-${c.id}`;
+    card.innerHTML = `
+      <div class="card-img-wrap">
+        <img src="images/squishy-${c.id}.png" alt="${c.name}" loading="lazy" />
+        <div class="card-badge" id="badge-${c.id}"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${c.emoji} ${c.name}</div>
+        <div class="vote-btns">
+          <button class="vote-btn btn-love"   onclick="vote('${c.id}','love')"   title="Love it!">💕</button>
+          <button class="vote-btn btn-retry"  onclick="vote('${c.id}','retry')"  title="Try again">🔄</button>
+          <button class="vote-btn btn-change" onclick="vote('${c.id}','change')" title="Change something">✏️</button>
+        </div>
+        <textarea
+          class="note-area"
+          id="note-${c.id}"
+          placeholder="What should we change? ✍️"
+          oninput="saveNote('${c.id}', this.value)"
+          rows="2"
+        ></textarea>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function vote(id, type) {
+  votes[id] = type;
+  const card = document.getElementById(`card-${id}`);
+  card.className = 'char-card voted-' + (type === 'love' ? 'love' : type === 'retry' ? 'retry' : 'change');
+
+  const badges = { love: '💕', retry: '🔄', change: '✏️' };
+  document.getElementById(`badge-${id}`).textContent = badges[type];
+
+  const noteEl = document.getElementById(`note-${id}`);
+  noteEl.style.display = (type === 'change') ? 'block' : 'none';
+  if (type !== 'change') notes[id] = '';
+
+  updateBtns(id, type);
+  updateProgress();
+}
+
+function updateBtns(id, active) {
+  const card = document.getElementById(`card-${id}`);
+  const btns = card.querySelectorAll('.vote-btn');
+  const types = ['love', 'retry', 'change'];
+  btns.forEach((btn, i) => {
+    btn.classList.toggle('active', types[i] === active);
+  });
+}
+
+function saveNote(id, val) {
+  notes[id] = val;
+}
+
+function updateProgress() {
+  const total = CHARACTERS.length;
+  const done = Object.keys(votes).length;
+  document.getElementById('progress-text').textContent = `${done} of ${total} reviewed`;
+  document.getElementById('progress-fill').style.width = `${(done / total) * 100}%`;
+
+  const loveCount  = Object.values(votes).filter(v => v === 'love').length;
+  const retryCount = Object.values(votes).filter(v => v === 'retry').length;
+  const changeCount= Object.values(votes).filter(v => v === 'change').length;
+
+  const btn = document.getElementById('submit-btn');
+  if (done === 0) {
+    document.getElementById('submit-count').textContent = 'Review some art first!';
+    btn.disabled = true;
+  } else {
+    document.getElementById('submit-count').textContent =
+      `💕 ${loveCount} love it  •  🔄 ${retryCount} redo  •  ✏️ ${changeCount} need changes`;
+    btn.disabled = false;
+  }
+}
+
+async function submitReview() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Sending to Mom...';
+
+  const loved   = [];
+  const retry   = [];
+  const changes = [];
+
+  CHARACTERS.forEach(c => {
+    if (!votes[c.id]) return;
+    const label = `${c.emoji} ${c.name}`;
+    if (votes[c.id] === 'love')   loved.push(label);
+    if (votes[c.id] === 'retry')  retry.push(label);
+    if (votes[c.id] === 'change') {
+      const note = notes[c.id] ? ` - "${notes[c.id]}"` : '';
+      changes.push(`${label}${note}`);
+    }
+  });
+
+  const total = Object.keys(votes).length;
+  const lines = [
+    `🥟 *Squishy Pals Art Review* (${total}/${CHARACTERS.length} reviewed)`,
+    ''
+  ];
+  if (loved.length)   lines.push(`💕 *Loves it* (${loved.length}):\n${loved.map(n=>`  • ${n}`).join('\n')}`);
+  if (retry.length)   lines.push(`\n🔄 *Try again* (${retry.length}):\n${retry.map(n=>`  • ${n}`).join('\n')}`);
+  if (changes.length) lines.push(`\n✏️ *Needs changes* (${changes.length}):\n${changes.map(n=>`  • ${n}`).join('\n')}`);
+  lines.push('\n⭐️ Sent from the Studio Portal!');
+
+  const message = lines.join('\n');
+
+  try {
+    const res = await fetch('/.netlify/functions/send-approval', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    });
+
+    if (res.ok) {
+      document.getElementById('main-portal').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'flex';
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Try again! 🔄';
+    alert('Oops! Check your connection and try again 💕');
+  }
+}
+
+function resetPortal() {
+  Object.keys(votes).forEach(k => delete votes[k]);
+  Object.keys(notes).forEach(k => delete notes[k]);
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('main-portal').style.display = 'block';
+  buildCards();
+  updateProgress();
+}
+</script>
+</body>
+</html>
