@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Squishy Pals Studio ✨</title>
+  <title>VoxelInk Studio ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -411,6 +411,81 @@
       box-shadow: 0 4px 16px var(--shadow);
     }
 
+    /* ─── TABS ─── */
+    .tab-bar {
+      display: flex;
+      gap: 0.6rem;
+      padding: 1rem 1.5rem 0;
+      background: linear-gradient(135deg, #FF8FAB, #C9A9E9);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.65rem 0.5rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px 12px 0 0;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .tab-btn.active {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ─── VIDEO CARDS ─── */
+    .video-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--shadow);
+      border: 3px solid transparent;
+    }
+
+    .video-card.voted-love   { border-color: #FF8FAB; background: #FFF5F8; }
+    .video-card.voted-retry  { border-color: #FFB997; background: #FFF8F5; }
+    .video-card.voted-change { border-color: #C9A9E9; background: #F8F5FF; }
+
+    .video-wrap {
+      position: relative;
+      aspect-ratio: 1;
+      background: #1a0a2e;
+      overflow: hidden;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 1.8rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      display: none;
+    }
+
+    .video-card.voted-love   .video-badge { display: block; }
+    .video-card.voted-retry  .video-badge { display: block; }
+    .video-card.voted-change .video-badge { display: block; }
+
+    .coming-soon {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #B06090;
+    }
+
+    .coming-soon .cs-emoji { font-size: 4rem; display: block; margin-bottom: 1rem; }
+    .coming-soon p { font-size: 1.1rem; font-weight: 700; }
+
     /* ─── LOADING STATE ─── */
     .spinner {
       display: inline-block;
@@ -453,7 +528,7 @@
 <!-- ═══════════ MAIN PORTAL ═══════════ -->
 <div id="main-portal">
   <div class="portal-header">
-    <h1>🥟 Squishy Pals Studio</h1>
+    <h1>🎨 VoxelInk Studio</h1>
     <p>Pick what you love and what needs a fix!</p>
     <div class="progress-bar">
       <span class="progress-text" id="progress-text">0 of 30 reviewed</span>
@@ -463,17 +538,40 @@
     </div>
   </div>
 
-  <div class="portal-content">
-    <div class="cards-grid" id="cards-grid">
-      <!-- Cards injected by JS -->
-    </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-art" onclick="switchTab('art')">🥟 Squishy Art</button>
+    <button class="tab-btn" id="tab-videos" onclick="switchTab('videos')">🎬 Videos</button>
+  </div>
 
-    <div class="submit-section">
-      <p class="submit-title">Ready to send to Mom? 💌</p>
-      <p class="submit-count" id="submit-count">Review some art first!</p>
-      <button class="submit-btn" id="submit-btn" onclick="submitReview()" disabled>
-        Send My Review! 🚀
-      </button>
+  <!-- ART TAB -->
+  <div id="pane-art">
+    <div class="portal-content">
+      <div class="cards-grid" id="cards-grid">
+        <!-- Cards injected by JS -->
+      </div>
+      <div class="submit-section">
+        <p class="submit-title">Ready to send to Mom? 💌</p>
+        <p class="submit-count" id="submit-count">Review some art first!</p>
+        <button class="submit-btn" id="submit-btn" onclick="submitReview()" disabled>
+          Send My Review! 🚀
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEOS TAB -->
+  <div id="pane-videos" style="display:none;">
+    <div class="portal-content">
+      <div class="cards-grid" id="videos-grid">
+        <!-- Video cards injected by JS -->
+      </div>
+      <div class="submit-section" id="video-submit-section" style="display:none;">
+        <p class="submit-title">Ready to send to Mom? 💌</p>
+        <p class="submit-count" id="video-submit-count">Review some videos first!</p>
+        <button class="submit-btn" id="video-submit-btn" onclick="submitVideoReview()" disabled>
+          Send Video Review! 🚀
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -489,6 +587,128 @@
 
 <script>
 const PASSWORD = "DUMPLING";
+
+// ── VIDEO CONFIG (updated when regen completes) ──────────────────────────────
+const VIDEOS = [
+  // { id: "lava-castle-425", name: "Lava Castle", emoji: "🏰", url: "https://..." },
+  // populated after regen - shows coming soon until then
+];
+const videoVotes = {};
+const videoNotes = {};
+
+function switchTab(tab) {
+  document.getElementById('pane-art').style.display    = tab === 'art'    ? '' : 'none';
+  document.getElementById('pane-videos').style.display = tab === 'videos' ? '' : 'none';
+  document.getElementById('tab-art').classList.toggle('active',    tab === 'art');
+  document.getElementById('tab-videos').classList.toggle('active', tab === 'videos');
+  if (tab === 'videos') buildVideoCards();
+}
+
+function buildVideoCards() {
+  const grid = document.getElementById('videos-grid');
+  const submitSection = document.getElementById('video-submit-section');
+  grid.innerHTML = '';
+
+  if (VIDEOS.length === 0) {
+    grid.innerHTML = `
+      <div class="coming-soon" style="grid-column:1/-1">
+        <span class="cs-emoji">🎬</span>
+        <p>New videos coming soon!</p>
+        <p style="font-size:0.85rem;margin-top:0.5rem;color:#C090B0;">Check back in a little while ✨</p>
+      </div>`;
+    submitSection.style.display = 'none';
+    return;
+  }
+
+  submitSection.style.display = '';
+  VIDEOS.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.id = `vcard-${v.id}`;
+    card.innerHTML = `
+      <div class="video-wrap">
+        <video src="${v.url}" playsinline controls loop preload="metadata"></video>
+        <div class="video-badge" id="vbadge-${v.id}"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${v.emoji} ${v.name}</div>
+        <div class="vote-btns">
+          <button class="vote-btn btn-love"   onclick="voteVideo('${v.id}','love')"   title="Love it!">💕</button>
+          <button class="vote-btn btn-retry"  onclick="voteVideo('${v.id}','retry')"  title="Try again">🔄</button>
+          <button class="vote-btn btn-change" onclick="voteVideo('${v.id}','change')" title="Change something">✏️</button>
+        </div>
+        <textarea
+          class="note-area"
+          id="vnote-${v.id}"
+          placeholder="What should we change? ✍️"
+          oninput="videoNotes['${v.id}']=this.value"
+          rows="2"
+        ></textarea>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function voteVideo(id, type) {
+  videoVotes[id] = type;
+  const card = document.getElementById(`vcard-${id}`);
+  card.className = 'video-card voted-' + (type === 'love' ? 'love' : type === 'retry' ? 'retry' : 'change');
+  const badges = { love: '💕', retry: '🔄', change: '✏️' };
+  document.getElementById(`vbadge-${id}`).textContent = badges[type];
+  const noteEl = document.getElementById(`vnote-${id}`);
+  noteEl.style.display = (type === 'change') ? 'block' : 'none';
+
+  const card2 = document.getElementById(`vcard-${id}`);
+  card2.querySelectorAll('.vote-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', ['love','retry','change'][i] === type);
+  });
+
+  const done = Object.keys(videoVotes).length;
+  const btn = document.getElementById('video-submit-btn');
+  document.getElementById('video-submit-count').textContent =
+    `${done} of ${VIDEOS.length} reviewed`;
+  btn.disabled = done === 0;
+}
+
+async function submitVideoReview() {
+  const btn = document.getElementById('video-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Sending to Mom...';
+
+  const loved = [], retry = [], changes = [];
+  VIDEOS.forEach(v => {
+    if (!videoVotes[v.id]) return;
+    const label = `${v.emoji} ${v.name}`;
+    if (videoVotes[v.id] === 'love')   loved.push(label);
+    if (videoVotes[v.id] === 'retry')  retry.push(label);
+    if (videoVotes[v.id] === 'change') {
+      const note = videoNotes[v.id] ? ` - "${videoNotes[v.id]}"` : '';
+      changes.push(`${label}${note}`);
+    }
+  });
+
+  const lines = [`🎬 *Video Review* (${Object.keys(videoVotes).length}/${VIDEOS.length} reviewed)`, ''];
+  if (loved.length)   lines.push(`💕 *Loves it*:\n${loved.map(n=>`  • ${n}`).join('\n')}`);
+  if (retry.length)   lines.push(`\n🔄 *Try again*:\n${retry.map(n=>`  • ${n}`).join('\n')}`);
+  if (changes.length) lines.push(`\n✏️ *Needs changes*:\n${changes.map(n=>`  • ${n}`).join('\n')}`);
+  lines.push('\n⭐️ Sent from the Studio Portal!');
+
+  try {
+    const res = await fetch('/.netlify/functions/send-approval', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: lines.join('\n') })
+    });
+    if (res.ok) {
+      document.getElementById('pane-videos').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'flex';
+    } else throw new Error();
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Try again! 🔄';
+    alert('Oops! Check your connection 💕');
+  }
+}
 
 const CHARACTERS = [
   { id: "dumpling",    name: "The Dumpling",     emoji: "🥟" },
