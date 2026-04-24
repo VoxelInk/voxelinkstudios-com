@@ -9,6 +9,74 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- JSON-LD Structured Data for AEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://voxelinkstudios.com/#org",
+        "name": "VoxelInk Studios",
+        "url": "https://voxelinkstudios.com",
+        "logo": "https://voxelinkstudios.com/images/voxelinkstudios-v-logo-1024.png",
+        "sameAs": [
+          "https://www.etsy.com/shop/VoxelInkStudios",
+          "https://www.tiktok.com/@voxelinkstudios"
+        ]
+      },
+      {
+        "@type": "Book",
+        "@id": "https://voxelinkstudios.com/#book1",
+        "name": "Pixel Pals: The Overworld Adventure",
+        "description": "Minecraft-style voxel coloring book for kids ages 6-12. 30 pages of chunky block art featuring farms, animals, nature, and village life.",
+        "author": {"@id": "https://voxelinkstudios.com/#org"},
+        "publisher": {"@id": "https://voxelinkstudios.com/#org"},
+        "isbn": "9798253859872",
+        "numberOfPages": 30,
+        "bookFormat": "https://schema.org/Paperback",
+        "audience": {"@type": "Audience", "suggestedMinAge": 6, "suggestedMaxAge": 12},
+        "genre": "Children's Activity Book",
+        "offers": [
+          {"@type": "Offer", "price": "4.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.etsy.com/listing/4479776482/minecraft-style-coloring-book-for-kids"}
+        ]
+      },
+      {
+        "@type": "Book",
+        "@id": "https://voxelinkstudios.com/#book2",
+        "name": "Pixel Pals: Dungeon Quest",
+        "description": "Minecraft-style voxel coloring book for kids ages 6-12. 30 pages of dungeon adventure art featuring knights, dragons, monsters, and epic boss battles.",
+        "author": {"@id": "https://voxelinkstudios.com/#org"},
+        "publisher": {"@id": "https://voxelinkstudios.com/#org"},
+        "isbn": "9798253862162",
+        "numberOfPages": 30,
+        "bookFormat": "https://schema.org/Paperback",
+        "audience": {"@type": "Audience", "suggestedMinAge": 6, "suggestedMaxAge": 12},
+        "genre": "Children's Activity Book",
+        "offers": [
+          {"@type": "Offer", "price": "4.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.etsy.com/listing/4479846180/minecraft-style-coloring-book-pixel-pals"}
+        ]
+      },
+      {
+        "@type": "Book",
+        "@id": "https://voxelinkstudios.com/#book3",
+        "name": "Pixel Pals: Build & Create",
+        "description": "Minecraft-style voxel coloring book for kids ages 6-12. 30 pages of builder-themed art featuring villages, castles, windmills, lighthouses, and grand structures.",
+        "author": {"@id": "https://voxelinkstudios.com/#org"},
+        "publisher": {"@id": "https://voxelinkstudios.com/#org"},
+        "isbn": "9798253863190",
+        "numberOfPages": 30,
+        "bookFormat": "https://schema.org/Paperback",
+        "audience": {"@type": "Audience", "suggestedMinAge": 6, "suggestedMaxAge": 12},
+        "genre": "Children's Activity Book",
+        "offers": [
+          {"@type": "Offer", "price": "4.99", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://www.etsy.com/listing/4479852124/minecraft-style-coloring-book-pixel-pals"}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -27,6 +95,15 @@
       <button class="nav-toggle" aria-label="Menu">☰</button>
     </div>
   </nav>
+
+  <!-- MUSIC PLAYER (ambient toggle) -->
+  <div class="music-toggle" id="musicToggle" title="Toggle ambient music" aria-label="Toggle ambient music">
+    <span class="music-icon">♪</span>
+    <audio id="bgMusic" loop preload="none">
+      <!-- TODO: Upload pixelland.mp3 (or chosen track) to catbox.moe and replace this src -->
+      <source src="CATBOX_MUSIC_URL_HERE" type="audio/mpeg" />
+    </audio>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -61,6 +138,11 @@
       <div class="px px-3"></div>
       <div class="px px-4"></div>
       <div class="px px-5"></div>
+      <div class="px px-6"></div>
+      <div class="px px-7"></div>
+      <div class="px px-8"></div>
+      <div class="px px-9"></div>
+      <div class="px px-10"></div>
     </div>
   </section>
 
@@ -196,6 +278,39 @@
           <h3>Print Unlimited Copies</h3>
           <p>PDF editions mean you can print pages again and again — perfect for siblings, classrooms, and parties.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL SIGNUP -->
+  <section class="signup" id="signup">
+    <div class="section-inner signup-inner">
+      <div class="signup-pixels" aria-hidden="true">
+        <div class="spx spx-1"></div>
+        <div class="spx spx-2"></div>
+        <div class="spx spx-3"></div>
+      </div>
+      <div class="section-label">Free Download</div>
+      <h2 class="section-title">Get 3 Free Coloring Pages</h2>
+      <p class="signup-sub">One page from each book - instantly. Join the VoxelInk family and be first to know when new books drop.</p>
+      <form class="signup-form" id="signupForm" novalidate>
+        <div class="signup-fields">
+          <input
+            type="email"
+            id="signupEmail"
+            name="email"
+            class="signup-input"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="btn btn-primary signup-btn">Send Me the Pages</button>
+        </div>
+        <p class="signup-note">No spam. Just pixels. Unsubscribe anytime.</p>
+      </form>
+      <div class="signup-success" id="signupSuccess" hidden>
+        <div class="success-icon">✅</div>
+        <p>You're in! Check your email for your free coloring pages.</p>
       </div>
     </div>
   </section>

@@ -1,6 +1,6 @@
 // VoxelInk Studios — Main JS
 
-// Mobile nav toggle
+// ── MOBILE NAV ──
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 
@@ -19,7 +19,6 @@ if (navToggle && navLinks) {
     navToggle.textContent = isOpen ? '☰' : '✕';
   });
 
-  // Close menu on link click
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.style.display = 'none';
@@ -28,35 +27,98 @@ if (navToggle && navLinks) {
   });
 }
 
-// Highlight active nav link on scroll
+// ── ACTIVE NAV ON SCROLL ──
 const sections = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
 
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(section => {
-    if (window.scrollY >= section.offsetTop - 100) {
-      current = section.getAttribute('id');
-    }
+    if (window.scrollY >= section.offsetTop - 100) current = section.getAttribute('id');
   });
   navAnchors.forEach(a => {
     a.style.color = a.getAttribute('href') === '#' + current ? '#f0f0f8' : '';
   });
 }, { passive: true });
 
-// Smooth entrance animations on scroll
-const observer = new IntersectionObserver((entries) => {
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
     }
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.book-card, .why-card, .bundle-inner').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  observer.observe(el);
+document.querySelectorAll('.book-card, .why-card, .bundle-inner, .signup-inner').forEach(el => {
+  el.classList.add('reveal');
+  revealObserver.observe(el);
 });
+
+// ── AMBIENT MUSIC TOGGLE ──
+const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+let musicStarted = false;
+
+if (musicToggle && bgMusic) {
+  musicToggle.addEventListener('click', () => {
+    if (!musicStarted) {
+      bgMusic.volume = 0.35;
+      bgMusic.play().then(() => {
+        musicStarted = true;
+        musicToggle.classList.add('playing');
+        musicToggle.querySelector('.music-icon').textContent = '♫';
+      }).catch(() => {});
+    } else if (bgMusic.paused) {
+      bgMusic.play();
+      musicToggle.classList.add('playing');
+      musicToggle.querySelector('.music-icon').textContent = '♫';
+    } else {
+      bgMusic.pause();
+      musicToggle.classList.remove('playing');
+      musicToggle.querySelector('.music-icon').textContent = '♪';
+    }
+  });
+}
+
+// ── EMAIL SIGNUP FORM ──
+const signupForm = document.getElementById('signupForm');
+const signupSuccess = document.getElementById('signupSuccess');
+
+if (signupForm) {
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value.trim();
+    if (!email) return;
+
+    const btn = signupForm.querySelector('.signup-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    // TODO: Replace with your Mailchimp or ConvertKit form action URL
+    // Mailchimp: action="https://voxelinkstudios.us21.list-manage.com/subscribe/post?u=XXXX&id=XXXX"
+    // ConvertKit: action="https://app.convertkit.com/forms/XXXX/subscriptions"
+    const FORM_ACTION = 'REPLACE_WITH_EMAIL_SERVICE_URL';
+
+    if (FORM_ACTION.startsWith('REPLACE')) {
+      // Dev mode: show success without posting
+      setTimeout(() => showSuccess(), 600);
+      return;
+    }
+
+    try {
+      const body = new FormData();
+      body.append('EMAIL', email);
+      await fetch(FORM_ACTION, { method: 'POST', body, mode: 'no-cors' });
+      showSuccess();
+    } catch {
+      showSuccess(); // show success regardless (no-cors means we can't read the response)
+    }
+  });
+
+  function showSuccess() {
+    signupForm.hidden = true;
+    signupSuccess.hidden = false;
+  }
+}
