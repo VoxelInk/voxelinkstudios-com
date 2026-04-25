@@ -68,10 +68,10 @@ if (musicToggle && bgMusic) {
     musicToggle.querySelector('.music-icon').textContent = playing ? '♫' : '♪';
   }
 
-  // Toggle on button click - direct user gesture guarantees Chrome allows it
   musicToggle.addEventListener('click', () => {
     if (bgMusic.paused) {
-      bgMusic.play().then(() => setPlaying(true)).catch(() => {});
+      setPlaying(true); // immediate visual feedback
+      bgMusic.play().catch(() => setPlaying(false)); // revert if it fails
     } else {
       bgMusic.pause();
       setPlaying(false);
@@ -79,9 +79,7 @@ if (musicToggle && bgMusic) {
   });
 
   // Attempt autoplay - works on mobile and permissive browsers
-  bgMusic.play().then(() => setPlaying(true)).catch(() => {
-    // Silently blocked - user can click the ♪ button to start
-  });
+  bgMusic.play().then(() => setPlaying(true)).catch(() => {});
 }
 
 // ── EMAIL SIGNUP FORM ──
