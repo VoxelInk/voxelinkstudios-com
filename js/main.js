@@ -99,7 +99,7 @@ if (signupForm) {
     // TODO: Replace with your Mailchimp or ConvertKit form action URL
     // Mailchimp: action="https://voxelinkstudios.us21.list-manage.com/subscribe/post?u=XXXX&id=XXXX"
     // ConvertKit: action="https://app.convertkit.com/forms/XXXX/subscriptions"
-    const FORM_ACTION = 'REPLACE_WITH_EMAIL_SERVICE_URL';
+    const FORM_ACTION = 'https://app.kit.com/forms/9367043/subscriptions';
 
     if (FORM_ACTION.startsWith('REPLACE')) {
       // Dev mode: show success without posting
