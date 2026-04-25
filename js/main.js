@@ -60,47 +60,27 @@ document.querySelectorAll('.book-card, .why-card, .bundle-inner, .signup-inner')
 const musicToggle = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
 
-function startMusic() {
-  bgMusic.volume = 0.35;
-  bgMusic.play().then(() => {
-    musicToggle.classList.add('playing');
-    musicToggle.querySelector('.music-icon').textContent = '♫';
-  }).catch(() => {});
-}
-
-function stopMusic() {
-  bgMusic.pause();
-  musicToggle.classList.remove('playing');
-  musicToggle.querySelector('.music-icon').textContent = '♪';
-}
-
 if (musicToggle && bgMusic) {
-  // Attempt autoplay immediately
   bgMusic.volume = 0.35;
-  bgMusic.play().then(() => {
-    musicToggle.classList.add('playing');
-    musicToggle.querySelector('.music-icon').textContent = '♫';
-  }).catch(() => {
-    // Browser blocked autoplay - start on first user interaction
-    const unlockAudio = () => {
-      startMusic();
-      document.removeEventListener('click', unlockAudio);
-      document.removeEventListener('scroll', unlockAudio);
-      document.removeEventListener('keydown', unlockAudio);
-    };
-    document.addEventListener('click', unlockAudio, { once: true });
-    document.addEventListener('scroll', unlockAudio, { once: true });
-    document.addEventListener('keydown', unlockAudio, { once: true });
+
+  function setPlaying(playing) {
+    musicToggle.classList.toggle('playing', playing);
+    musicToggle.querySelector('.music-icon').textContent = playing ? '♫' : '♪';
+  }
+
+  // Toggle on button click - direct user gesture guarantees Chrome allows it
+  musicToggle.addEventListener('click', () => {
+    if (bgMusic.paused) {
+      bgMusic.play().then(() => setPlaying(true)).catch(() => {});
+    } else {
+      bgMusic.pause();
+      setPlaying(false);
+    }
   });
 
-  // Toggle on button click
-  musicToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (bgMusic.paused) {
-      startMusic();
-    } else {
-      stopMusic();
-    }
+  // Attempt autoplay - works on mobile and permissive browsers
+  bgMusic.play().then(() => setPlaying(true)).catch(() => {
+    // Silently blocked - user can click the ♪ button to start
   });
 }
 
@@ -140,7 +120,7 @@ if (signupForm) {
   });
 
   function showSuccess() {
-    signupForm.hidden = true;
-    signupSuccess.hidden = false;
+    signupForm.style.display = 'none';
+    signupSuccess.classList.add('visible');
   }
 }

@@ -796,7 +796,7 @@ img { max-width: 100%; display: block; }
 }
 
 .signup-success {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   gap: 12px;
@@ -805,6 +805,10 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--green);
   border-radius: var(--radius-lg);
   max-width: 400px;
+}
+
+.signup-success.visible {
+  display: flex;
 }
 
 .success-icon { font-size: 2rem; }
