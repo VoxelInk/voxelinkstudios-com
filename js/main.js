@@ -109,7 +109,7 @@ if (signupForm) {
 
     try {
       const body = new FormData();
-      body.append('EMAIL', email);
+      body.append('email_address', email);
       await fetch(FORM_ACTION, { method: 'POST', body, mode: 'no-cors' });
       showSuccess();
     } catch {
