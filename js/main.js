@@ -59,25 +59,47 @@ document.querySelectorAll('.book-card, .why-card, .bundle-inner, .signup-inner')
 // ── AMBIENT MUSIC TOGGLE ──
 const musicToggle = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
-let musicStarted = false;
+
+function startMusic() {
+  bgMusic.volume = 0.35;
+  bgMusic.play().then(() => {
+    musicToggle.classList.add('playing');
+    musicToggle.querySelector('.music-icon').textContent = '♫';
+  }).catch(() => {});
+}
+
+function stopMusic() {
+  bgMusic.pause();
+  musicToggle.classList.remove('playing');
+  musicToggle.querySelector('.music-icon').textContent = '♪';
+}
 
 if (musicToggle && bgMusic) {
-  musicToggle.addEventListener('click', () => {
-    if (!musicStarted) {
-      bgMusic.volume = 0.35;
-      bgMusic.play().then(() => {
-        musicStarted = true;
-        musicToggle.classList.add('playing');
-        musicToggle.querySelector('.music-icon').textContent = '♫';
-      }).catch(() => {});
-    } else if (bgMusic.paused) {
-      bgMusic.play();
-      musicToggle.classList.add('playing');
-      musicToggle.querySelector('.music-icon').textContent = '♫';
+  // Attempt autoplay immediately
+  bgMusic.volume = 0.35;
+  bgMusic.play().then(() => {
+    musicToggle.classList.add('playing');
+    musicToggle.querySelector('.music-icon').textContent = '♫';
+  }).catch(() => {
+    // Browser blocked autoplay - start on first user interaction
+    const unlockAudio = () => {
+      startMusic();
+      document.removeEventListener('click', unlockAudio);
+      document.removeEventListener('scroll', unlockAudio);
+      document.removeEventListener('keydown', unlockAudio);
+    };
+    document.addEventListener('click', unlockAudio, { once: true });
+    document.addEventListener('scroll', unlockAudio, { once: true });
+    document.addEventListener('keydown', unlockAudio, { once: true });
+  });
+
+  // Toggle on button click
+  musicToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (bgMusic.paused) {
+      startMusic();
     } else {
-      bgMusic.pause();
-      musicToggle.classList.remove('playing');
-      musicToggle.querySelector('.music-icon').textContent = '♪';
+      stopMusic();
     }
   });
 }
