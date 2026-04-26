@@ -539,7 +539,7 @@
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" id="tab-art" onclick="switchTab('art')">🥟 Squishy Art</button>
+    <button class="tab-btn active" id="tab-art" onclick="switchTab('art')">🎨 Pixel Pals Art</button>
     <button class="tab-btn" id="tab-videos" onclick="switchTab('videos')">🎬 Videos</button>
   </div>
 
@@ -712,36 +712,31 @@ async function submitVideoReview() {
 }
 
 const CHARACTERS = [
-  { id: "dumpling",    name: "The Dumpling",     emoji: "🥟" },
-  { id: "cat",         name: "Squishy Cat",       emoji: "🐱" },
-  { id: "bunny",       name: "Squishy Bunny",     emoji: "🐰" },
-  { id: "bear",        name: "Squishy Bear",      emoji: "🐻" },
-  { id: "dog",         name: "Squishy Dog",       emoji: "🐶" },
-  { id: "panda",       name: "Squishy Panda",     emoji: "🐼" },
-  { id: "fox",         name: "Squishy Fox",       emoji: "🦊" },
-  { id: "unicorn",     name: "Squishy Unicorn",   emoji: "🦄" },
-  { id: "dragon",      name: "Baby Dragon",       emoji: "🐲" },
-  { id: "mermaid",     name: "Squishy Mermaid",   emoji: "🧜" },
-  { id: "fairy",       name: "Squishy Fairy",     emoji: "🧚" },
-  { id: "phoenix",     name: "Squishy Phoenix",   emoji: "🔥" },
-  { id: "griffin",     name: "Squishy Griffin",   emoji: "🦅" },
-  { id: "strawberry",  name: "Squishy Strawberry",emoji: "🍓" },
-  { id: "ice-cream",   name: "Ice Cream Cone",    emoji: "🍦" },
-  { id: "avocado",     name: "Squishy Avocado",   emoji: "🥑" },
-  { id: "donut",       name: "Squishy Donut",     emoji: "🍩" },
-  { id: "boba-tea",    name: "Boba Tea",          emoji: "🧋" },
-  { id: "axolotl",     name: "Squishy Axolotl",   emoji: "🦎" },
-  { id: "jellyfish",   name: "Squishy Jellyfish",  emoji: "🪼" },
-  { id: "whale",       name: "Squishy Whale",     emoji: "🐳" },
-  { id: "octopus",     name: "Squishy Octopus",   emoji: "🐙" },
-  { id: "crab",        name: "Squishy Crab",      emoji: "🦀" },
-  { id: "seahorse",    name: "Squishy Seahorse",  emoji: "🌊" },
-  { id: "cloud",       name: "Squishy Cloud",     emoji: "☁️" },
-  { id: "mushroom",    name: "Squishy Mushroom",  emoji: "🍄" },
-  { id: "alien",       name: "Squishy Alien",     emoji: "👽" },
-  { id: "planet",      name: "Squishy Planet",    emoji: "🪐" },
-  { id: "template",    name: "Design Your Own!",  emoji: "✏️" },
-  { id: "squad-scene", name: "Squishy Squad",     emoji: "🌟" },
+  { id: "fluffy-sheep-meadow", name: "Fluffy Sheep Meadow", emoji: "🐑", url: "https://files.catbox.moe/a19gte.png", style: "color" },
+  { id: "giant-mushroom-house", name: "Giant Mushroom House", emoji: "🍄", url: "https://files.catbox.moe/7p5z3i.png", style: "bw" },
+  { id: "creeper-meadow-smile", name: "Creeper Meadow Smile", emoji: "💚", url: "https://files.catbox.moe/rj331i.png", style: "bw" },
+  { id: "windmill-wheat-plains", name: "Windmill Wheat Plains", emoji: "🌾", url: "https://files.catbox.moe/gxjqja.png", style: "color" },
+  { id: "villager-bakery", name: "Villager Bakery", emoji: "🍞", url: "https://files.catbox.moe/2hd6st.png", style: "color" },
+  { id: "pufferfish-reef", name: "Pufferfish Reef", emoji: "🐡", url: "https://files.catbox.moe/5zufyu.png", style: "color" },
+  { id: "polar-bear-arctic", name: "Polar Bear Arctic", emoji: "🐻‍❄️", url: "https://files.catbox.moe/op2jxj.png", style: "bw" },
+  { id: "dolphin-sunrise-ocean", name: "Dolphin Sunrise Ocean", emoji: "🐬", url: "https://files.catbox.moe/gjxc1p.png", style: "color" },
+  { id: "underwater-shipwreck", name: "Underwater Shipwreck", emoji: "⚓", url: "https://files.catbox.moe/z1hwvv.png", style: "bw" },
+  { id: "turtle-nest-beach", name: "Turtle Nest Beach", emoji: "🐢", url: "https://files.catbox.moe/25u8eb.png", style: "color" },
+  { id: "wizard-tower-night", name: "Wizard Tower Night", emoji: "🧙", url: "https://files.catbox.moe/dyss6o.png", style: "bw" },
+  { id: "fairy-mushroom-ring", name: "Fairy Mushroom Ring", emoji: "🧚", url: "https://files.catbox.moe/ax9cyj.png", style: "color" },
+  { id: "baby-dragon-hatching", name: "Baby Dragon Hatching", emoji: "🐲", url: "https://files.catbox.moe/8jdse7.png", style: "color" },
+  { id: "rainbow-valley-unicorn", name: "Rainbow Valley Unicorn", emoji: "🦄", url: "https://files.catbox.moe/owp1y9.png", style: "color" },
+  { id: "stargazer-cozy-cottage", name: "Stargazer Cozy Cottage", emoji: "🔭", url: "https://files.catbox.moe/gxzf2v.png", style: "bw" },
+  { id: "enderman-night-glow", name: "Enderman Night Glow", emoji: "👁️", url: "https://files.catbox.moe/ndjayu.png", style: "color" },
+  { id: "jungle-ancient-temple", name: "Jungle Ancient Temple", emoji: "🏛️", url: "https://files.catbox.moe/8wwy78.png", style: "color" },
+  { id: "mountain-summit-hero", name: "Mountain Summit Hero", emoji: "🏔️", url: "https://files.catbox.moe/thhy7x.png", style: "color" },
+  { id: "nether-portal-glow", name: "Nether Portal Glow", emoji: "🌀", url: "https://files.catbox.moe/j157hu.png", style: "bw" },
+  { id: "desert-pyramid-sunset", name: "Desert Pyramid Sunset", emoji: "🏜️", url: "https://files.catbox.moe/o5jv12.png", style: "bw" },
+  { id: "creeper-birthday-party", name: "Creeper Birthday Party", emoji: "🎂", url: "https://files.catbox.moe/ptsafg.png", style: "color" },
+  { id: "rainbow-waterfall-valley", name: "Rainbow Waterfall Valley", emoji: "🌈", url: "https://files.catbox.moe/ftmk6m.png", style: "color" },
+  { id: "hot-air-balloon-overworld", name: "Hot Air Balloon Overworld", emoji: "🎈", url: "https://files.catbox.moe/im6i69.png", style: "bw" },
+  { id: "enchanted-library", name: "Enchanted Library", emoji: "📚", url: "https://files.catbox.moe/b1qyax.png", style: "bw" },
+  { id: "explorer-duo-adventure", name: "Explorer Duo Adventure", emoji: "⚔️", url: "https://files.catbox.moe/hjar4f.png", style: "bw" }
 ];
 
 const votes = {};
@@ -771,7 +766,7 @@ function buildCards() {
     card.id = `card-${c.id}`;
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img src="images/squishy-${c.id}.png" alt="${c.name}" loading="lazy" />
+        <img src="${c.url || 'images/squishy-' + c.id + '.png'}" alt="${c.name}" loading="lazy" />
         <div class="card-badge" id="badge-${c.id}"></div>
       </div>
       <div class="card-body">
