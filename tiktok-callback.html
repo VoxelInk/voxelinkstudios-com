@@ -97,12 +97,14 @@
     } else if (code && state === savedState) {
       spinner.style.display = 'none';
       title.innerHTML = '<span class="success">TikTok Connected!</span>';
-      sub.textContent = 'Your TikTok account has been successfully linked. You can now publish content directly from VoxelInk Studios tools.';
+      sub.textContent = 'Your TikTok account has been successfully linked. You can now schedule and publish content directly from VoxelInk Studios tools.';
+      sub.insertAdjacentHTML('afterend', '<a href="tiktok-post.html" class="btn-home" style="margin-top:1.25rem;display:inline-block;">Schedule Your First Post &rarr;</a>');
       sessionStorage.removeItem('tiktok_state');
     } else if (code) {
       spinner.style.display = 'none';
       title.innerHTML = '<span class="success">TikTok Connected!</span>';
       sub.textContent = 'Your TikTok account has been successfully linked.';
+      sub.insertAdjacentHTML('afterend', '<a href="tiktok-post.html" class="btn-home" style="margin-top:1.25rem;display:inline-block;">Schedule Your First Post &rarr;</a>');
     } else {
       spinner.style.display = 'none';
       title.innerHTML = '<span class="error">Something went wrong</span>';
