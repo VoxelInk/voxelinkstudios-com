@@ -12,545 +12,220 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #0f0f19; font-family: 'Inter', sans-serif; color: #ffffff; }
 
-    .post-page {
-      min-height: 100vh;
-      padding: 2rem 1rem 4rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .post-page { min-height: 100vh; padding: 2rem 1rem 4rem; display: flex; flex-direction: column; align-items: center; }
 
-    .post-header {
-      width: 100%;
-      max-width: 600px;
-      margin-bottom: 1.5rem;
-    }
-    .post-header h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 0.25rem;
-    }
-    .post-header p {
-      font-size: 0.875rem;
-      color: #9ca3af;
-    }
-    .account-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #1a1a2e;
-      border: 1px solid #2a2a4a;
-      border-radius: 20px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.8rem;
-      color: #4ade80;
-      margin-top: 0.75rem;
-    }
-    .account-dot {
-      width: 8px; height: 8px;
-      background: #4ade80;
-      border-radius: 50%;
-    }
+    .post-header { width: 100%; max-width: 600px; margin-bottom: 1.5rem; }
+    .post-header h1 { font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 0.25rem; }
+    .post-header p { font-size: 0.875rem; color: #9ca3af; }
+    .account-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 20px; padding: 0.3rem 0.75rem; font-size: 0.8rem; color: #4ade80; margin-top: 0.75rem; }
+    .account-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; }
 
-    .post-card {
-      background: #1a1a2e;
-      border: 1px solid #2a2a4a;
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 600px;
-      width: 100%;
-    }
+    .post-card { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 16px; padding: 2rem; max-width: 600px; width: 100%; }
 
-    /* Video upload area */
-    .upload-zone {
-      border: 2px dashed #2a2a4a;
-      border-radius: 12px;
-      padding: 2.5rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    .upload-zone:hover, .upload-zone.drag-over {
-      border-color: #4ade80;
-      background: rgba(74, 222, 128, 0.04);
-    }
-    .upload-zone input[type="file"] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer;
-    }
-    .upload-icon {
-      font-size: 2.25rem;
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-    .upload-label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 0.25rem;
-    }
-    .upload-hint {
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
-    .upload-selected {
-      font-size: 0.85rem;
-      color: #4ade80;
-      margin-top: 0.5rem;
-      font-weight: 500;
-    }
+    .upload-zone { border: 2px dashed #2a2a4a; border-radius: 12px; padding: 2.5rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 1.5rem; position: relative; }
+    .upload-zone:hover, .upload-zone.drag-over { border-color: #4ade80; background: rgba(74,222,128,0.04); }
+    .upload-zone.has-file { border-color: #4ade80; border-style: solid; background: rgba(74,222,128,0.04); }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .upload-icon { font-size: 2.25rem; margin-bottom: 0.75rem; display: block; }
+    .upload-label { font-size: 1rem; font-weight: 600; color: #ffffff; margin-bottom: 0.25rem; }
+    .upload-hint { font-size: 0.8rem; color: #6b7280; }
+    .upload-selected { font-size: 0.85rem; color: #4ade80; margin-top: 0.5rem; font-weight: 500; display: none; }
 
-    /* Caption */
-    .field-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-    textarea.caption-input {
-      width: 100%;
-      background: #0f0f19;
-      border: 1px solid #2a2a4a;
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      resize: vertical;
-      min-height: 90px;
-      outline: none;
-      transition: border-color 0.2s;
-      margin-bottom: 1.5rem;
-    }
+    .field-label { font-size: 0.8rem; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: block; }
+    textarea.caption-input { width: 100%; background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 8px; padding: 0.75rem 1rem; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.5; resize: vertical; min-height: 90px; outline: none; transition: border-color 0.2s; margin-bottom: 1.5rem; }
     textarea.caption-input:focus { border-color: #4ade80; }
 
-    /* Section divider */
-    .section-divider {
-      border: none;
-      border-top: 1px solid #2a2a4a;
-      margin: 1.5rem 0;
-    }
-    .section-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 1.25rem;
-    }
+    .section-divider { border: none; border-top: 1px solid #2a2a4a; margin: 1.5rem 0; }
+    .section-title { font-size: 0.8rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
 
-    /* Privacy level */
-    .privacy-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .privacy-option {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: #0f0f19;
-      border: 1.5px solid #2a2a4a;
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
+    .privacy-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .privacy-option { display: flex; align-items: center; gap: 0.75rem; background: #0f0f19; border: 1.5px solid #2a2a4a; border-radius: 8px; padding: 0.75rem 1rem; cursor: pointer; transition: border-color 0.2s; }
     .privacy-option:hover { border-color: #4ade80; }
     .privacy-option.selected { border-color: #4ade80; background: rgba(74,222,128,0.05); }
     .privacy-option input[type="radio"] { display: none; }
-    .privacy-radio-circle {
-      width: 18px; height: 18px;
-      border: 2px solid #4a4a6a;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.2s;
-    }
-    .privacy-option.selected .privacy-radio-circle {
-      border-color: #4ade80;
-    }
-    .privacy-radio-dot {
-      width: 9px; height: 9px;
-      background: #4ade80;
-      border-radius: 50%;
-      display: none;
-    }
+    .privacy-radio-circle { width: 18px; height: 18px; border: 2px solid #4a4a6a; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .privacy-option.selected .privacy-radio-circle { border-color: #4ade80; }
+    .privacy-radio-dot { width: 9px; height: 9px; background: #4ade80; border-radius: 50%; display: none; }
     .privacy-option.selected .privacy-radio-dot { display: block; }
     .privacy-info { flex: 1; }
-    .privacy-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-    .privacy-desc {
-      font-size: 0.78rem;
-      color: #6b7280;
-      margin-top: 0.1rem;
-    }
+    .privacy-name { font-size: 0.9rem; font-weight: 600; color: #ffffff; }
+    .privacy-desc { font-size: 0.78rem; color: #6b7280; margin-top: 0.1rem; }
     .privacy-icon { font-size: 1.1rem; }
 
-    /* Toggle row */
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.875rem 0;
-      border-bottom: 1px solid #1f1f35;
-    }
+    .interaction-hint { font-size: 0.8rem; color: #f97316; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 1.25rem; display: none; line-height: 1.5; }
+    .interaction-hint.visible { display: block; }
+
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 0; border-bottom: 1px solid #1f1f35; transition: opacity 0.2s; }
     .toggle-row:last-of-type { border-bottom: none; }
+    .toggle-row.disabled { opacity: 0.32; pointer-events: none; }
     .toggle-info { flex: 1; }
-    .toggle-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-    .toggle-desc {
-      font-size: 0.78rem;
-      color: #6b7280;
-      margin-top: 0.15rem;
-    }
-    .toggle-switch {
-      position: relative;
-      width: 44px; height: 24px;
-      flex-shrink: 0;
-      margin-left: 1rem;
-    }
+    .toggle-name { font-size: 0.9rem; font-weight: 600; color: #ffffff; }
+    .toggle-desc { font-size: 0.78rem; color: #6b7280; margin-top: 0.15rem; }
+    .toggle-switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; margin-left: 1rem; }
     .toggle-switch input { display: none; }
-    .toggle-track {
-      position: absolute; inset: 0;
-      background: #2a2a4a;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+    .toggle-track { position: absolute; inset: 0; background: #2a2a4a; border-radius: 12px; cursor: pointer; transition: background 0.2s; }
     .toggle-switch input:checked + .toggle-track { background: #4ade80; }
-    .toggle-thumb {
-      position: absolute;
-      top: 3px; left: 3px;
-      width: 18px; height: 18px;
-      background: #ffffff;
-      border-radius: 50%;
-      transition: transform 0.2s;
-      pointer-events: none;
-    }
+    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #ffffff; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
     .toggle-switch input:checked ~ .toggle-thumb { transform: translateX(20px); }
 
-    /* Disclosure */
-    .disclosure-box {
-      background: #0f0f19;
-      border: 1px solid #2a2a4a;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .disclosure-intro {
-      font-size: 0.82rem;
-      color: #9ca3af;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-    .disclosure-check {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-      cursor: pointer;
-    }
-    .disclosure-check:last-child { margin-bottom: 0; }
+    .disclosure-intro { font-size: 0.82rem; color: #9ca3af; line-height: 1.5; margin-bottom: 1rem; }
+    .disclosure-box { background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 10px; overflow: hidden; margin-bottom: 0.75rem; }
+    .disclosure-check { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; border-bottom: 1px solid #1a1a2e; cursor: pointer; transition: background 0.15s; }
+    .disclosure-check:last-child { border-bottom: none; }
+    .disclosure-check:hover { background: rgba(74,222,128,0.03); }
     .disclosure-check input[type="checkbox"] { display: none; }
-    .check-box {
-      width: 20px; height: 20px;
-      border: 2px solid #4a4a6a;
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .disclosure-check.checked .check-box {
-      border-color: #4ade80;
-      background: #4ade80;
-    }
-    .check-mark {
-      color: #000;
-      font-size: 12px;
-      font-weight: 700;
-      display: none;
-    }
+    .check-box { width: 20px; height: 20px; border: 2px solid #4a4a6a; border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; }
+    .disclosure-check.checked .check-box { border-color: #4ade80; background: #4ade80; }
+    .check-mark { color: #000; font-size: 12px; font-weight: 700; display: none; }
     .disclosure-check.checked .check-mark { display: block; }
     .check-text { flex: 1; }
-    .check-label {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-    .check-sublabel {
-      font-size: 0.78rem;
-      color: #6b7280;
-      margin-top: 0.15rem;
-      line-height: 1.4;
-    }
-    .disclosure-note {
-      font-size: 0.78rem;
-      color: #6b7280;
-      line-height: 1.5;
-      padding: 0.75rem;
-      background: rgba(74,222,128,0.05);
-      border: 1px solid rgba(74,222,128,0.15);
-      border-radius: 8px;
-    }
-    .disclosure-note strong { color: #4ade80; }
+    .check-label { font-size: 0.875rem; font-weight: 600; color: #ffffff; }
+    .check-sublabel { font-size: 0.78rem; color: #6b7280; margin-top: 0.15rem; line-height: 1.4; }
 
-    /* Schedule section */
-    .schedule-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-      flex-wrap: wrap;
-    }
-    .schedule-input {
-      flex: 1;
-      min-width: 160px;
-      background: #0f0f19;
-      border: 1px solid #2a2a4a;
-      border-radius: 8px;
-      padding: 0.7rem 1rem;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
+    .tos-line { font-size: 0.78rem; color: #6b7280; line-height: 1.6; padding: 0.75rem; background: rgba(74,222,128,0.04); border: 1px solid rgba(74,222,128,0.12); border-radius: 8px; margin-bottom: 1.25rem; }
+    .tos-line a { color: #4ade80; text-decoration: underline; }
+
+    .schedule-row { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .schedule-input { flex: 1; min-width: 160px; background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 8px; padding: 0.7rem 1rem; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 0.875rem; outline: none; transition: border-color 0.2s; }
     .schedule-input:focus { border-color: #4ade80; }
 
-    /* Buttons */
-    .btn-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-    }
-    .btn-primary {
-      flex: 1;
-      background: #4ade80;
-      color: #000000;
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 0.875rem 1.5rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(74,222,128,0.25);
-    }
-    .btn-secondary {
-      background: transparent;
-      color: #9ca3af;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.875rem 1.25rem;
-      border-radius: 8px;
-      border: 1px solid #2a2a4a;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
+    .btn-row { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .btn-primary { flex: 1; background: #4ade80; color: #000000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 0.875rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,222,128,0.25); }
+    .btn-secondary { background: transparent; color: #9ca3af; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 0.875rem 1.25rem; border-radius: 8px; border: 1px solid #2a2a4a; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
     .btn-secondary:hover { border-color: #4a4a6a; color: #ffffff; }
 
-    /* Success toast */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #14532d;
-      color: #4ade80;
-      border: 1px solid #4ade80;
-      border-radius: 10px;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: transform 0.3s ease;
-      z-index: 999;
-    }
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #14532d; color: #4ade80; border: 1px solid #4ade80; border-radius: 10px; padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: 600; transition: transform 0.3s ease; z-index: 999; }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    .step-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px; height: 22px;
-      background: #4ade80;
-      color: #000;
-      font-size: 0.7rem;
-      font-weight: 700;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-right: 0.5rem;
-    }
+    .step-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: #4ade80; color: #000; font-size: 0.7rem; font-weight: 700; border-radius: 50%; flex-shrink: 0; margin-right: 0.5rem; }
   </style>
 </head>
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a class="nav-logo" href="index.html">
-        <span class="logo-pixel">▓</span> VoxelInk Studios
-      </a>
+      <a class="nav-logo" href="index.html"><span class="logo-pixel">▓</span> VoxelInk Studios</a>
     </div>
   </nav>
 
   <div class="post-page">
     <div class="post-header">
       <h1>Schedule a TikTok Post</h1>
-      <p>Upload your video, choose your settings, and publish or schedule.</p>
-      <div class="account-chip">
-        <span class="account-dot"></span>
-        Connected: @voxelinkstudios
-      </div>
+      <p>Upload your video, set your privacy options, and publish or schedule.</p>
+      <div class="account-chip"><span class="account-dot"></span>Connected: @voxelinkstudios</div>
     </div>
 
     <div class="post-card">
 
-      <!-- Video upload -->
       <label class="field-label">Video</label>
       <div class="upload-zone" id="uploadZone">
         <input type="file" accept="video/*" id="videoFile" onchange="onFileSelect(this)" />
         <span class="upload-icon">&#128249;</span>
-        <p class="upload-label">Drag & drop or click to upload</p>
-        <p class="upload-hint">MP4 or MOV · Max 4GB · Up to 10 minutes</p>
-        <p class="upload-selected" id="fileSelected" style="display:none;"></p>
+        <p class="upload-label">Drag &amp; drop or click to upload</p>
+        <p class="upload-hint">MP4 or MOV &middot; Max 4GB &middot; Up to 10 minutes</p>
+        <p class="upload-selected" id="fileSelected"></p>
       </div>
 
-      <!-- Caption -->
       <label class="field-label" for="caption">Caption</label>
       <textarea class="caption-input" id="caption" placeholder="Write your caption... Add hashtags to reach more viewers." maxlength="2200"></textarea>
 
       <hr class="section-divider" />
       <p class="section-title">Post Settings</p>
 
-      <!-- 1. Privacy Level -->
-      <label class="field-label">
-        <span class="step-badge">1</span> Privacy Level
-      </label>
-      <div class="privacy-group" id="privacyGroup">
-        <label class="privacy-option selected" onclick="selectPrivacy(this, 'public')">
-          <input type="radio" name="privacy" value="public" checked />
+      <!-- 1. Who can watch this video -->
+      <label class="field-label"><span class="step-badge">1</span> Who can watch this video</label>
+      <div class="privacy-group">
+        <label class="privacy-option selected" id="opt-everyone" onclick="selectPrivacy(this,'everyone')">
+          <input type="radio" name="privacy" value="PUBLIC_TO_EVERYONE" checked />
           <span class="privacy-radio-circle"><span class="privacy-radio-dot"></span></span>
           <span class="privacy-icon">&#127758;</span>
-          <span class="privacy-info">
-            <span class="privacy-name">Public</span>
-            <span class="privacy-desc">Anyone on TikTok can see this post</span>
-          </span>
+          <span class="privacy-info"><span class="privacy-name">Everyone</span><span class="privacy-desc">Anyone on TikTok can see this post</span></span>
         </label>
-        <label class="privacy-option" onclick="selectPrivacy(this, 'friends')">
-          <input type="radio" name="privacy" value="friends" />
+        <label class="privacy-option" id="opt-friends" onclick="selectPrivacy(this,'friends')">
+          <input type="radio" name="privacy" value="MUTUAL_FOLLOW_FRIENDS" />
           <span class="privacy-radio-circle"><span class="privacy-radio-dot"></span></span>
           <span class="privacy-icon">&#128101;</span>
-          <span class="privacy-info">
-            <span class="privacy-name">Friends Only</span>
-            <span class="privacy-desc">Only your mutual followers can see this post</span>
-          </span>
+          <span class="privacy-info"><span class="privacy-name">Friends</span><span class="privacy-desc">Only your mutual followers can see this post</span></span>
         </label>
-        <label class="privacy-option" onclick="selectPrivacy(this, 'private')">
-          <input type="radio" name="privacy" value="private" />
+        <label class="privacy-option" id="opt-onlyme" onclick="selectPrivacy(this,'onlyme')">
+          <input type="radio" name="privacy" value="SELF_ONLY" />
           <span class="privacy-radio-circle"><span class="privacy-radio-dot"></span></span>
           <span class="privacy-icon">&#128274;</span>
-          <span class="privacy-info">
-            <span class="privacy-name">Private</span>
-            <span class="privacy-desc">Only you can see this post</span>
-          </span>
+          <span class="privacy-info"><span class="privacy-name">Only me</span><span class="privacy-desc">Only you can see this post</span></span>
         </label>
       </div>
+      <div class="interaction-hint" id="interactionHint"></div>
 
-      <!-- 2. Allow Comments -->
-      <div class="toggle-row">
+      <!-- 2. Allow comments -->
+      <div class="toggle-row" id="row-comments">
         <div class="toggle-info">
-          <p class="toggle-name"><span class="step-badge">2</span> Allow Comments</p>
+          <p class="toggle-name"><span class="step-badge">2</span> Allow comments</p>
           <p class="toggle-desc">Let viewers comment on this post</p>
         </div>
         <label class="toggle-switch">
-          <input type="checkbox" id="allowComments" checked onchange="syncThumb(this)" />
+          <input type="checkbox" id="allowComments" checked />
           <span class="toggle-track"></span>
           <span class="toggle-thumb"></span>
         </label>
       </div>
 
       <!-- 3. Allow Duet -->
-      <div class="toggle-row">
+      <div class="toggle-row" id="row-duet">
         <div class="toggle-info">
           <p class="toggle-name"><span class="step-badge">3</span> Allow Duet</p>
           <p class="toggle-desc">Let other creators make a Duet with this video</p>
         </div>
         <label class="toggle-switch">
-          <input type="checkbox" id="allowDuet" checked onchange="syncThumb(this)" />
+          <input type="checkbox" id="allowDuet" checked />
           <span class="toggle-track"></span>
           <span class="toggle-thumb"></span>
         </label>
       </div>
 
       <!-- 4. Allow Stitch -->
-      <div class="toggle-row">
+      <div class="toggle-row" id="row-stitch">
         <div class="toggle-info">
           <p class="toggle-name"><span class="step-badge">4</span> Allow Stitch</p>
           <p class="toggle-desc">Let other creators use clips from this video in their content</p>
         </div>
         <label class="toggle-switch">
-          <input type="checkbox" id="allowStitch" checked onchange="syncThumb(this)" />
+          <input type="checkbox" id="allowStitch" checked />
           <span class="toggle-track"></span>
           <span class="toggle-thumb"></span>
         </label>
       </div>
 
       <hr class="section-divider" />
-      <p class="section-title">Disclosure Settings</p>
 
-      <!-- 5. Disclosure -->
-      <label class="field-label" style="margin-bottom:0.75rem;">
-        <span class="step-badge">5</span> Content Disclosure
-      </label>
+      <!-- 5. Disclose video content -->
+      <label class="field-label"><span class="step-badge">5</span> Disclose video content</label>
+      <p class="disclosure-intro">Let viewers know if this video promotes goods or services. Selecting a disclosure option is required when your content is promotional.</p>
 
       <div class="disclosure-box">
-        <p class="disclosure-intro">
-          Is this post promoting a brand, product, or service? TikTok requires creators to disclose when content is branded or paid.
-        </p>
-
-        <label class="disclosure-check" id="check-branded" onclick="toggleCheck(this)">
-          <input type="checkbox" id="brandedContent" />
+        <label class="disclosure-check" id="check-yourbrand" onclick="toggleCheck(this,'yourbrand')">
+          <input type="checkbox" />
           <span class="check-box"><span class="check-mark">&#10003;</span></span>
           <span class="check-text">
-            <span class="check-label">Your video promotes a brand, product, or service</span>
-            <span class="check-sublabel">Branded content - you received something of value (money, products, or services) to create this video</span>
+            <span class="check-label">Your brand</span>
+            <span class="check-sublabel">You are promoting yourself or your own business. e.g. a creator-owned business.</span>
           </span>
         </label>
-
-        <label class="disclosure-check" id="check-promotional" onclick="toggleCheck(this)">
-          <input type="checkbox" id="promotionalContent" />
+        <label class="disclosure-check" id="check-branded" onclick="toggleCheck(this,'branded')">
+          <input type="checkbox" />
           <span class="check-box"><span class="check-mark">&#10003;</span></span>
           <span class="check-text">
-            <span class="check-label">You are promoting your own brand, product, or service</span>
-            <span class="check-sublabel">Organic promotion - you are marketing your own business without receiving third-party payment</span>
+            <span class="check-label">Branded content</span>
+            <span class="check-sublabel">You are promoting another brand or a third party. This requires a paid partnership disclosure.</span>
           </span>
         </label>
       </div>
 
-      <div class="disclosure-note">
-        <strong>Why this matters:</strong> TikTok's community guidelines require all creators to be transparent about paid partnerships and brand promotions. Failure to disclose may result in content removal.
+      <div class="tos-line" id="tosLine">
+        By posting, you agree to TikTok's <a href="#">Music Usage Confirmation</a>
       </div>
 
       <hr class="section-divider" />
       <p class="section-title">Schedule</p>
-
       <label class="field-label">Post Date &amp; Time</label>
       <div class="schedule-row">
         <input class="schedule-input" type="date" id="schedDate" />
@@ -568,68 +243,74 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // Set default schedule date/time to tomorrow 9AM
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     tomorrow.setHours(9, 0, 0, 0);
     document.getElementById('schedDate').value = tomorrow.toISOString().split('T')[0];
     document.getElementById('schedTime').value = '09:00';
 
-    function onFileSelect(input) {
-      const el = document.getElementById('fileSelected');
-      if (input.files[0]) {
-        el.textContent = input.files[0].name;
-        el.style.display = 'block';
+    function selectPrivacy(label, value) {
+      document.querySelectorAll('.privacy-option').forEach(o => o.classList.remove('selected'));
+      label.classList.add('selected');
+      const duet   = document.getElementById('row-duet');
+      const stitch = document.getElementById('row-stitch');
+      const hint   = document.getElementById('interactionHint');
+      if (value === 'onlyme') {
+        duet.classList.add('disabled');
+        stitch.classList.add('disabled');
+        hint.innerHTML = 'Duet and Stitch are not available when visibility is set to <strong>Only me</strong>.';
+        hint.classList.add('visible');
+      } else if (value === 'friends') {
+        duet.classList.remove('disabled');
+        stitch.classList.add('disabled');
+        hint.innerHTML = 'Stitch is not available when visibility is set to <strong>Friends</strong>.';
+        hint.classList.add('visible');
+      } else {
+        duet.classList.remove('disabled');
+        stitch.classList.remove('disabled');
+        hint.classList.remove('visible');
       }
     }
 
-    function selectPrivacy(label, value) {
-      document.querySelectorAll('.privacy-option').forEach(opt => opt.classList.remove('selected'));
-      label.classList.add('selected');
-    }
-
-    function syncThumb(input) {
-      // thumb position is handled by CSS sibling ~ selector
-    }
-
-    function toggleCheck(label) {
+    function toggleCheck(label, name) {
       label.classList.toggle('checked');
-      const cb = label.querySelector('input[type="checkbox"]');
-      cb.checked = !cb.checked;
+      label.querySelector('input[type="checkbox"]').checked = label.classList.contains('checked');
+      const branded = document.getElementById('check-branded').classList.contains('checked');
+      document.getElementById('tosLine').innerHTML = branded
+        ? "By posting, you agree to TikTok's <a href='#'>Branded Content Policy</a> and <a href='#'>Music Usage Confirmation</a>"
+        : "By posting, you agree to TikTok's <a href='#'>Music Usage Confirmation</a>";
+    }
+
+    function onFileSelect(input) {
+      if (input.files[0]) {
+        const el = document.getElementById('fileSelected');
+        el.textContent = '✓ ' + input.files[0].name;
+        el.style.display = 'block';
+        document.getElementById('uploadZone').classList.add('has-file');
+      }
     }
 
     function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    function schedulePost() {
-      const file = document.getElementById('videoFile').files[0];
-      const caption = document.getElementById('caption').value.trim();
-      if (!file) { showToast('Please select a video first.'); return; }
-      if (!caption) { showToast('Please add a caption.'); return; }
-      showToast('Post scheduled successfully!');
-    }
+    function schedulePost() { showToast('Post scheduled successfully! ✓'); }
+    function saveDraft() { showToast('Draft saved.'); }
 
-    function saveDraft() {
-      showToast('Draft saved.');
-    }
-
-    // Drag-over styling
     const zone = document.getElementById('uploadZone');
     zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
     zone.addEventListener('drop', e => {
-      e.preventDefault();
-      zone.classList.remove('drag-over');
+      e.preventDefault(); zone.classList.remove('drag-over');
       const f = e.dataTransfer.files[0];
       if (f) {
         document.getElementById('videoFile').files = e.dataTransfer.files;
         const el = document.getElementById('fileSelected');
-        el.textContent = f.name;
-        el.style.display = 'block';
+        el.textContent = '✓ ' + f.name; el.style.display = 'block';
+        zone.classList.add('has-file');
       }
     });
   </script>
