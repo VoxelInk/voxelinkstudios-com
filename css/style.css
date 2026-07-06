@@ -991,4 +991,6 @@ img { max-width: 100%; display: block; }
   .hero-ctas { flex-direction: column; align-items: center; }
   .hero-stats { gap: 10px; }
   .stat-divider { display: none; }
+  .signup-fields { flex-direction: column; }
+  .signup-btn { width: 100%; }
 }
