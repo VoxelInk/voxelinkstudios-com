@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Coloring Pages – The VoxelInk Mini Pack | VoxelInk Studios</title>
+  <meta name="description" content="Get 5 free printable coloring pages - 3 blocky voxel adventures and 2 kawaii Squishy Critters - delivered instantly to your inbox." />
+  <link rel="canonical" href="https://voxelinkstudios.com/free" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .free-hero { padding: 4.5rem 1.5rem 3rem; text-align: center; }
+    .free-hero .section-inner { max-width: 720px; margin: 0 auto; }
+    .free-preview { max-width: 340px; width: 90%; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); margin: 2rem auto 0; display: block; }
+    .free-list { list-style: none; padding: 0; margin: 1.5rem auto; max-width: 420px; text-align: left; }
+    .free-list li { padding: 0.4rem 0 0.4rem 1.8rem; position: relative; }
+    .free-list li::before { content: "▓"; position: absolute; left: 0; color: #8E0613; font-size: 0.8rem; top: 0.55rem; }
+    .free-covers { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin: 2rem auto 0.5rem; }
+    .free-covers img { width: 110px; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+    .free-back { display: inline-block; margin-top: 2.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- HERO + SIGNUP -->
+  <section class="signup free-hero" id="signup">
+    <div class="section-inner signup-inner">
+      <div class="section-label">Free Download</div>
+      <h1 class="section-title">The VoxelInk Mini Pack</h1>
+      <p class="signup-sub">5 free printable coloring pages, straight from our books - delivered to your inbox instantly.</p>
+
+      <ul class="free-list">
+        <li>3 blocky voxel adventure pages (ages 6-12)</li>
+        <li>2 kawaii Squishy Critters pages (ages 5-10)</li>
+        <li>Print as many copies as your family needs</li>
+        <li>Be first to know when new books drop</li>
+      </ul>
+
+      <form class="signup-form" id="signupForm" novalidate>
+        <div class="signup-fields">
+          <input
+            type="email"
+            id="signupEmail"
+            name="email"
+            class="signup-input"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="btn btn-primary signup-btn">Send Me the Mini Pack</button>
+        </div>
+        <p class="signup-note">No spam. Just pixels. Unsubscribe anytime.</p>
+      </form>
+      <div class="signup-success" id="signupSuccess" hidden>
+        <div class="success-icon">✅</div>
+        <p>You're in! Check your email - your Mini Pack is on the way.</p>
+      </div>
+
+      <img class="free-preview" src="images/mini-pack-preview.jpg" alt="Sample coloring page from the Mini Pack - a cute kawaii unicorn character" loading="lazy" />
+
+      <div class="free-covers" aria-hidden="true">
+        <img src="images/book1-voxel-cover.jpg" alt="" loading="lazy" />
+        <img src="images/book2-voxel-cover.jpg" alt="" loading="lazy" />
+        <img src="images/book3-voxel-cover.jpg" alt="" loading="lazy" />
+        <img src="images/squishy-critters-cover.jpg" alt="" loading="lazy" />
+      </div>
+      <p class="signup-note">Pages come from these four books.</p>
+
+      <a class="btn btn-primary free-back" href="/color" style="margin-right:0.75rem;">Try Coloring in Your Browser →</a>
+      <a class="btn btn-etsy free-back" href="/">← Back to VoxelInk Studios</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="section-inner footer-inner">
+      <div class="footer-logo">
+        <span class="logo-pixel">▓</span> VoxelInk Studios
+      </div>
+      <p class="footer-copy">© 2026 VoxelInk Studios. All rights reserved. Not affiliated with Minecraft or Mojang. | <a href="/privacy-policy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script data-goatcounter="https://voxelink.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

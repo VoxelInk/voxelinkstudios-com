@@ -122,3 +122,91 @@ if (signupForm) {
     signupSuccess.classList.add('visible');
   }
 }
+
+// ── AUTO-FLIP BOOK COVERS ON TOUCH DEVICES ──
+// Desktop users flip covers by hovering; touch screens get a staggered
+// auto-flip while the books section is on screen.
+const flipInners = document.querySelectorAll('.book-flip-inner');
+const booksSection = document.getElementById('books');
+const touchOnly = window.matchMedia('(hover: none)').matches;
+const prefersStill = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (flipInners.length && booksSection && touchOnly && !prefersStill) {
+  let flipTimer = null;
+  let flipIndex = 0;
+
+  const startFlipping = () => {
+    if (flipTimer) return;
+    flipTimer = setInterval(() => {
+      flipInners[flipIndex % flipInners.length].classList.toggle('flipped');
+      flipIndex++;
+    }, 1800);
+  };
+  const stopFlipping = () => {
+    clearInterval(flipTimer);
+    flipTimer = null;
+  };
+
+  const flipObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => (entry.isIntersecting ? startFlipping() : stopFlipping()));
+  }, { threshold: 0.15 });
+  flipObserver.observe(booksSection);
+}
+
+// ── DUMPLING EASTER EGG ──
+// Tap The Dumpling icon 5 times to unlock a secret bonus page.
+const dumpling = document.getElementById('dumplingIcon');
+if (dumpling) {
+  let taps = 0;
+  let lastTap = 0;
+  const CONFETTI_COLORS = ['#e91e8c', '#4ade80', '#f5b301', '#4a9df8', '#ff8fab', '#9b6bf3'];
+
+  dumpling.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const now = Date.now();
+    taps = now - lastTap < 3000 ? taps + 1 : 1;
+    lastTap = now;
+    // little squish per tap for feedback
+    dumpling.style.transform = 'scale(0.85)';
+    setTimeout(() => { dumpling.style.transform = ''; }, 120);
+    if (taps >= 5) {
+      taps = 0;
+      throwConfetti();
+      showEggModal();
+    }
+  });
+
+  function throwConfetti() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    for (let i = 0; i < 70; i++) {
+      const c = document.createElement('div');
+      c.className = 'pixel-confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+      c.style.animationDuration = 1.6 + Math.random() * 1.8 + 's';
+      c.style.animationDelay = Math.random() * 0.6 + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4200);
+    }
+  }
+
+  function showEggModal() {
+    if (document.querySelector('.egg-overlay')) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'egg-overlay';
+    overlay.innerHTML =
+      '<div class="egg-modal" role="dialog" aria-modal="true" aria-label="Secret unlocked">' +
+      '<button type="button" class="egg-close" aria-label="Close">×</button>' +
+      '<h3>You found The Dumpling’s secret!</h3>' +
+      '<p>Shhh... only true fans get this one. A secret bonus coloring page, just for finders like you.</p>' +
+      '<div class="egg-actions">' +
+      '<a class="btn btn-primary" href="images/bonus-boba.jpg" download="secret-squishy-page.jpg">Download the Secret Page</a>' +
+      '<a class="btn btn-etsy" href="/color">Color The Dumpling Online</a>' +
+      '</div></div>';
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.classList.contains('egg-close')) overlay.remove();
+    });
+    document.body.appendChild(overlay);
+  }
+}

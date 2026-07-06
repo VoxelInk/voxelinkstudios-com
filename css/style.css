@@ -891,7 +891,14 @@ img { max-width: 100%; display: block; }
 .world-card--squishy .world-cta  { color: #e91e8c; }
 
 @media (max-width: 760px) {
-  .worlds-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .worlds-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .world-card { padding: 26px 12px; gap: 8px; }
+  .world-emoji svg { height: 50px; width: auto; }
+  .world-name { font-size: 0.58rem; }
+  .world-tag  { font-size: 0.82rem; }
+  .world-desc { font-size: 0.78rem; line-height: 1.5; }
+  .world-ages { font-size: 0.48rem; padding: 5px 11px; }
+  .world-cta  { font-size: 0.78rem; margin-top: 10px; }
 }
 
 /* ── PEEK INSIDE ── */
@@ -910,6 +917,45 @@ img { max-width: 100%; display: block; }
 .peek-page img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 760px) { .peek-grid { grid-template-columns: repeat(2, 1fr); } }
 
+/* ── WORLD ICON ANIMATIONS ── */
+
+.world-emoji svg { overflow: visible; }
+.world-card--voxel .world-emoji svg {
+  transform-origin: 50% 88%;
+  animation: sword-slice 5s ease-in-out infinite;
+}
+@keyframes sword-slice {
+  0%, 60%   { transform: rotate(0deg); }
+  66%       { transform: rotate(-38deg); }
+  73%       { transform: rotate(24deg); }
+  80%, 100% { transform: rotate(0deg); }
+}
+.spark { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.world-card--voxel .spark   { animation: spark-pop 5s ease-out infinite; }
+.world-card--voxel .spark-2 { animation-delay: 0.15s; }
+.world-card--voxel .spark-3 { animation-delay: 0.3s; }
+@keyframes spark-pop {
+  0%, 68%   { opacity: 0; transform: scale(0.2); }
+  75%       { opacity: 1; transform: scale(1.2); }
+  86%, 100% { opacity: 0; transform: scale(0.4); }
+}
+.world-card--squishy .world-emoji svg {
+  transform-origin: 50% 100%;
+  animation: squishy-bounce 2.6s ease-in-out infinite;
+}
+@keyframes squishy-bounce {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  12%      { transform: translateY(0) scale(1.07, 0.9); }
+  38%      { transform: translateY(-13px) scale(0.96, 1.06); }
+  55%      { transform: translateY(0) scale(1, 1); }
+  63%      { transform: translateY(0) scale(1.05, 0.93); }
+  72%      { transform: translateY(0) scale(1, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .world-emoji svg, .spark { animation: none !important; }
+  .book-flip-inner { transition: none; }
+}
+
 /* ── BOOK COVER FLIP ── */
 
 .book-flip { width: 100%; height: 100%; perspective: 1000px; }
@@ -918,6 +964,7 @@ img { max-width: 100%; display: block; }
   transition: transform 0.6s ease; transform-style: preserve-3d;
 }
 .book-card:hover .book-flip-inner { transform: rotateY(180deg); }
+.book-flip-inner.flipped { transform: rotateY(180deg); }
 .book-flip-face {
   position: absolute; inset: 0;
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
@@ -991,4 +1038,39 @@ img { max-width: 100%; display: block; }
   .hero-ctas { flex-direction: column; align-items: center; }
   .hero-stats { gap: 10px; }
   .stat-divider { display: none; }
+  .signup-fields { flex-direction: column; }
+  .signup-btn { width: 100%; }
+}
+
+/* ── DUMPLING EASTER EGG ── */
+
+#dumplingIcon { cursor: pointer; }
+.pixel-confetti {
+  position: fixed; top: -14px; z-index: 9999; pointer-events: none;
+  width: 12px; height: 12px;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  to { transform: translateY(110vh) rotate(720deg); }
+}
+.egg-overlay {
+  position: fixed; inset: 0; z-index: 9998;
+  background: rgba(10, 8, 18, 0.82);
+  display: flex; align-items: center; justify-content: center; padding: 1.25rem;
+}
+.egg-modal {
+  background: #fff0f6; color: #3a2b2b; border: 3px solid #e91e8c;
+  border-radius: 16px; max-width: 420px; width: 100%;
+  padding: 2rem 1.75rem; text-align: center; position: relative;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+}
+.egg-modal h3 { font-family: var(--pixel-font); font-size: 0.9rem; color: #c2185b; line-height: 1.7; margin: 0 0 0.75rem; }
+.egg-modal p { font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.25rem; }
+.egg-modal .egg-actions { display: flex; flex-direction: column; gap: 10px; }
+.egg-close {
+  position: absolute; top: 10px; right: 14px; border: 0; background: none;
+  font-size: 1.4rem; cursor: pointer; color: #c2185b; line-height: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pixel-confetti { display: none; }
 }
