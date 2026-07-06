@@ -93,27 +93,40 @@ if (signupForm) {
     if (!email) return;
 
     const btn = signupForm.querySelector('.signup-btn');
+    const originalLabel = btn.textContent;
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
-    // TODO: Replace with your Mailchimp or ConvertKit form action URL
-    // Mailchimp: action="https://voxelinkstudios.us21.list-manage.com/subscribe/post?u=XXXX&id=XXXX"
-    // ConvertKit: action="https://app.convertkit.com/forms/XXXX/subscriptions"
-    const FORM_ACTION = 'https://app.kit.com/forms/9367043/subscriptions';
-
-    if (FORM_ACTION.startsWith('REPLACE')) {
-      // Dev mode: show success without posting
-      setTimeout(() => showSuccess(), 600);
-      return;
+    // Posts through our Netlify function -> Kit v3 API. Direct form posts
+    // get quarantined by Kit's bot guard; the API path does not, and it
+    // gives us a real answer instead of a blind no-cors fire-and-forget.
+    try {
+      const res = await fetch('/.netlify/functions/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        showSuccess();
+      } else {
+        showError();
+      }
+    } catch {
+      showError();
     }
 
-    try {
-      const body = new FormData();
-      body.append('email_address', email);
-      await fetch(FORM_ACTION, { method: 'POST', body, mode: 'no-cors' });
-      showSuccess();
-    } catch {
-      showSuccess(); // show success regardless (no-cors means we can't read the response)
+    function showError() {
+      btn.textContent = originalLabel;
+      btn.disabled = false;
+      let err = signupForm.querySelector('.signup-error');
+      if (!err) {
+        err = document.createElement('p');
+        err.className = 'signup-note signup-error';
+        err.style.color = '#ff8fab';
+        signupForm.appendChild(err);
+      }
+      err.textContent = "Hmm, that didn't go through - please check the address and try again.";
     }
   });
 
