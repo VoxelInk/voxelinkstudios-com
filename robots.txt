@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /tiktok-callback.html
+Disallow: /tiktok-connect.html
+Disallow: /tiktok-post.html
+Disallow: /studio-portal/
+
+Sitemap: https://voxelinkstudios.com/sitemap.xml
