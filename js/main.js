@@ -122,3 +122,33 @@ if (signupForm) {
     signupSuccess.classList.add('visible');
   }
 }
+
+// ── AUTO-FLIP BOOK COVERS ON TOUCH DEVICES ──
+// Desktop users flip covers by hovering; touch screens get a staggered
+// auto-flip while the books section is on screen.
+const flipInners = document.querySelectorAll('.book-flip-inner');
+const booksSection = document.getElementById('books');
+const touchOnly = window.matchMedia('(hover: none)').matches;
+const prefersStill = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (flipInners.length && booksSection && touchOnly && !prefersStill) {
+  let flipTimer = null;
+  let flipIndex = 0;
+
+  const startFlipping = () => {
+    if (flipTimer) return;
+    flipTimer = setInterval(() => {
+      flipInners[flipIndex % flipInners.length].classList.toggle('flipped');
+      flipIndex++;
+    }, 1800);
+  };
+  const stopFlipping = () => {
+    clearInterval(flipTimer);
+    flipTimer = null;
+  };
+
+  const flipObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => (entry.isIntersecting ? startFlipping() : stopFlipping()));
+  }, { threshold: 0.15 });
+  flipObserver.observe(booksSection);
+}
