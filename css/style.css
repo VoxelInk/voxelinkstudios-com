@@ -1041,3 +1041,36 @@ img { max-width: 100%; display: block; }
   .signup-fields { flex-direction: column; }
   .signup-btn { width: 100%; }
 }
+
+/* ── DUMPLING EASTER EGG ── */
+
+#dumplingIcon { cursor: pointer; }
+.pixel-confetti {
+  position: fixed; top: -14px; z-index: 9999; pointer-events: none;
+  width: 12px; height: 12px;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  to { transform: translateY(110vh) rotate(720deg); }
+}
+.egg-overlay {
+  position: fixed; inset: 0; z-index: 9998;
+  background: rgba(10, 8, 18, 0.82);
+  display: flex; align-items: center; justify-content: center; padding: 1.25rem;
+}
+.egg-modal {
+  background: #fff0f6; color: #3a2b2b; border: 3px solid #e91e8c;
+  border-radius: 16px; max-width: 420px; width: 100%;
+  padding: 2rem 1.75rem; text-align: center; position: relative;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+}
+.egg-modal h3 { font-family: var(--pixel-font); font-size: 0.9rem; color: #c2185b; line-height: 1.7; margin: 0 0 0.75rem; }
+.egg-modal p { font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.25rem; }
+.egg-modal .egg-actions { display: flex; flex-direction: column; gap: 10px; }
+.egg-close {
+  position: absolute; top: 10px; right: 14px; border: 0; background: none;
+  font-size: 1.4rem; cursor: pointer; color: #c2185b; line-height: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pixel-confetti { display: none; }
+}

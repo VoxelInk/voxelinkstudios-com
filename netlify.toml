@@ -9,3 +9,8 @@
   from = "/free"
   to = "/free.html"
   status = 200
+
+[[redirects]]
+  from = "/color"
+  to = "/color.html"
+  status = 200
