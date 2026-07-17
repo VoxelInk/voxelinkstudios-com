@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Schedule TikTok Post - VoxelInk Studios Creator Tools</title>
+  <title>Post to TikTok - VoxelInk Studios Creator Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -19,10 +19,11 @@
     .post-header p { font-size: 0.875rem; color: #9ca3af; }
     .account-chip { display: inline-flex; align-items: center; gap: 0.5rem; background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 20px; padding: 0.3rem 0.75rem; font-size: 0.8rem; color: #4ade80; margin-top: 0.75rem; }
     .account-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; }
+    .account-note { font-size: 0.72rem; color: #6b7280; margin-top: 0.4rem; }
 
     .post-card { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 16px; padding: 2rem; max-width: 600px; width: 100%; }
 
-    .upload-zone { border: 2px dashed #2a2a4a; border-radius: 12px; padding: 2.5rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 1.5rem; position: relative; }
+    .upload-zone { border: 2px dashed #2a2a4a; border-radius: 12px; padding: 2.5rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 1rem; position: relative; }
     .upload-zone:hover, .upload-zone.drag-over { border-color: #4ade80; background: rgba(74,222,128,0.04); }
     .upload-zone.has-file { border-color: #4ade80; border-style: solid; background: rgba(74,222,128,0.04); }
     .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
@@ -31,17 +32,26 @@
     .upload-hint { font-size: 0.8rem; color: #6b7280; }
     .upload-selected { font-size: 0.85rem; color: #4ade80; margin-top: 0.5rem; font-weight: 500; display: none; }
 
+    .video-preview { display: none; margin-bottom: 1.5rem; }
+    .video-preview.visible { display: block; }
+    .video-preview video { width: 100%; max-height: 340px; border-radius: 12px; background: #000; }
+    .preview-caption { font-size: 0.75rem; color: #6b7280; margin-top: 0.4rem; }
+
     .field-label { font-size: 0.8rem; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: block; }
+    .required-star { color: #f87171; }
     textarea.caption-input { width: 100%; background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 8px; padding: 0.75rem 1rem; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.5; resize: vertical; min-height: 90px; outline: none; transition: border-color 0.2s; margin-bottom: 1.5rem; }
     textarea.caption-input:focus { border-color: #4ade80; }
 
     .section-divider { border: none; border-top: 1px solid #2a2a4a; margin: 1.5rem 0; }
     .section-title { font-size: 0.8rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
 
+    .privacy-select-hint { font-size: 0.78rem; color: #9ca3af; margin-bottom: 0.6rem; }
     .privacy-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
-    .privacy-option { display: flex; align-items: center; gap: 0.75rem; background: #0f0f19; border: 1.5px solid #2a2a4a; border-radius: 8px; padding: 0.75rem 1rem; cursor: pointer; transition: border-color 0.2s; }
+    .privacy-option { display: flex; align-items: center; gap: 0.75rem; background: #0f0f19; border: 1.5px solid #2a2a4a; border-radius: 8px; padding: 0.75rem 1rem; cursor: pointer; transition: border-color 0.2s, opacity 0.2s; position: relative; }
     .privacy-option:hover { border-color: #4ade80; }
     .privacy-option.selected { border-color: #4ade80; background: rgba(74,222,128,0.05); }
+    .privacy-option.disabled { opacity: 0.35; cursor: not-allowed; }
+    .privacy-option.disabled:hover { border-color: #2a2a4a; }
     .privacy-option input[type="radio"] { display: none; }
     .privacy-radio-circle { width: 18px; height: 18px; border: 2px solid #4a4a6a; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
     .privacy-option.selected .privacy-radio-circle { border-color: #4ade80; }
@@ -51,6 +61,8 @@
     .privacy-name { font-size: 0.9rem; font-weight: 600; color: #ffffff; }
     .privacy-desc { font-size: 0.78rem; color: #6b7280; margin-top: 0.1rem; }
     .privacy-icon { font-size: 1.1rem; }
+    .privacy-option .lock-reason { display: none; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: #2a2a4a; color: #e5e7eb; font-size: 0.68rem; padding: 0.3rem 0.6rem; border-radius: 6px; max-width: 220px; line-height: 1.35; }
+    .privacy-option.disabled:hover .lock-reason { display: block; }
 
     .interaction-hint { font-size: 0.8rem; color: #f97316; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 1.25rem; display: none; line-height: 1.5; }
     .interaction-hint.visible { display: block; }
@@ -68,7 +80,9 @@
     .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #ffffff; border-radius: 50%; transition: transform 0.2s; pointer-events: none; }
     .toggle-switch input:checked ~ .toggle-thumb { transform: translateX(20px); }
 
-    .disclosure-intro { font-size: 0.82rem; color: #9ca3af; line-height: 1.5; margin-bottom: 1rem; }
+    .disclosure-intro { font-size: 0.82rem; color: #9ca3af; line-height: 1.5; margin-bottom: 0; }
+    .disclosure-body { display: none; margin-top: 0.9rem; }
+    .disclosure-body.visible { display: block; }
     .disclosure-box { background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 10px; overflow: hidden; margin-bottom: 0.75rem; }
     .disclosure-check { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; border-bottom: 1px solid #1a1a2e; cursor: pointer; transition: background 0.15s; }
     .disclosure-check:last-child { border-bottom: none; }
@@ -82,18 +96,33 @@
     .check-label { font-size: 0.875rem; font-weight: 600; color: #ffffff; }
     .check-sublabel { font-size: 0.78rem; color: #6b7280; margin-top: 0.15rem; line-height: 1.4; }
 
+    .disclosure-warning { font-size: 0.8rem; color: #f87171; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; display: none; line-height: 1.5; }
+    .disclosure-warning.visible { display: block; }
+    .label-preview { font-size: 0.8rem; color: #60a5fa; background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; display: none; line-height: 1.5; }
+    .label-preview.visible { display: block; }
+
     .tos-line { font-size: 0.78rem; color: #6b7280; line-height: 1.6; padding: 0.75rem; background: rgba(74,222,128,0.04); border: 1px solid rgba(74,222,128,0.12); border-radius: 8px; margin-bottom: 1.25rem; }
     .tos-line a { color: #4ade80; text-decoration: underline; }
 
-    .schedule-row { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-    .schedule-input { flex: 1; min-width: 160px; background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 8px; padding: 0.7rem 1rem; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 0.875rem; outline: none; transition: border-color 0.2s; }
-    .schedule-input:focus { border-color: #4ade80; }
+    .processing-note { font-size: 0.78rem; color: #9ca3af; line-height: 1.5; margin-bottom: 1rem; }
 
     .btn-row { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
-    .btn-primary { flex: 1; background: #4ade80; color: #000000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 0.875rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,222,128,0.25); }
+    .btn-primary { flex: 1; background: #4ade80; color: #000000; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 0.875rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s; }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,222,128,0.25); }
+    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
     .btn-secondary { background: transparent; color: #9ca3af; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 0.875rem 1.25rem; border-radius: 8px; border: 1px solid #2a2a4a; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
     .btn-secondary:hover { border-color: #4a4a6a; color: #ffffff; }
+    .btn-disabled-hint { font-size: 0.75rem; color: #f87171; margin-top: 0.5rem; text-align: center; display: none; }
+    .btn-disabled-hint.visible { display: block; }
+
+    .status-panel { display: none; background: #0f0f19; border: 1px solid #2a2a4a; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
+    .status-panel.visible { display: block; }
+    .status-step { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; font-size: 0.85rem; color: #6b7280; }
+    .status-step.active { color: #ffffff; }
+    .status-step.done { color: #4ade80; }
+    .status-icon { width: 18px; text-align: center; }
+    .progress-track { height: 6px; background: #2a2a4a; border-radius: 3px; overflow: hidden; margin: 0.75rem 0 0.5rem; }
+    .progress-fill { height: 100%; width: 0%; background: #4ade80; border-radius: 3px; transition: width 0.4s ease; }
 
     .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #14532d; color: #4ade80; border: 1px solid #4ade80; border-radius: 10px; padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: 600; transition: transform 0.3s ease; z-index: 999; }
     .toast.show { transform: translateX(-50%) translateY(0); }
@@ -110,33 +139,40 @@
 
   <div class="post-page">
     <div class="post-header">
-      <h1>Schedule a TikTok Post</h1>
-      <p>Upload your video, set your privacy options, and publish or schedule.</p>
-      <div class="account-chip"><span class="account-dot"></span>Connected: @voxelinkstudios</div>
+      <h1>Post to TikTok</h1>
+      <p>Upload your video, choose your settings, and post to your TikTok profile.</p>
+      <div class="account-chip"><span class="account-dot"></span>Posting to: <strong>&nbsp;VoxelInk&nbsp;</strong> (@voxelinkstudios)</div>
+      <p class="account-note">Account info is loaded from TikTok when you connect. Max video length for this account: 60 minutes.</p>
     </div>
 
     <div class="post-card">
 
-      <label class="field-label">Video</label>
+      <label class="field-label">Video <span class="required-star">*</span></label>
       <div class="upload-zone" id="uploadZone">
-        <input type="file" accept="video/*" id="videoFile" onchange="onFileSelect(this)" />
+        <input type="file" accept="video/mp4,video/quicktime" id="videoFile" onchange="onFileSelect(this)" />
         <span class="upload-icon">&#128249;</span>
         <p class="upload-label">Drag &amp; drop or click to upload</p>
         <p class="upload-hint">MP4 or MOV &middot; Max 4GB &middot; Up to 10 minutes</p>
         <p class="upload-selected" id="fileSelected"></p>
       </div>
 
-      <label class="field-label" for="caption">Caption</label>
+      <div class="video-preview" id="videoPreview">
+        <video id="previewPlayer" controls muted playsinline></video>
+        <p class="preview-caption">Preview your video before posting.</p>
+      </div>
+
+      <label class="field-label" for="caption">Caption <span class="required-star">*</span></label>
       <textarea class="caption-input" id="caption" placeholder="Write your caption... Add hashtags to reach more viewers." maxlength="2200"></textarea>
 
       <hr class="section-divider" />
       <p class="section-title">Post Settings</p>
 
       <!-- 1. Who can watch this video -->
-      <label class="field-label"><span class="step-badge">1</span> Who can watch this video</label>
+      <label class="field-label"><span class="step-badge">1</span> Who can watch this video <span class="required-star">*</span></label>
+      <p class="privacy-select-hint">Please select who can view this post. This is required before posting.</p>
       <div class="privacy-group">
-        <label class="privacy-option selected" id="opt-everyone" onclick="selectPrivacy(this,'everyone')">
-          <input type="radio" name="privacy" value="PUBLIC_TO_EVERYONE" checked />
+        <label class="privacy-option" id="opt-everyone" onclick="selectPrivacy(this,'everyone')">
+          <input type="radio" name="privacy" value="PUBLIC_TO_EVERYONE" />
           <span class="privacy-radio-circle"><span class="privacy-radio-dot"></span></span>
           <span class="privacy-icon">&#127758;</span>
           <span class="privacy-info"><span class="privacy-name">Everyone</span><span class="privacy-desc">Anyone on TikTok can see this post</span></span>
@@ -152,6 +188,7 @@
           <span class="privacy-radio-circle"><span class="privacy-radio-dot"></span></span>
           <span class="privacy-icon">&#128274;</span>
           <span class="privacy-info"><span class="privacy-name">Only me</span><span class="privacy-desc">Only you can see this post</span></span>
+          <span class="lock-reason">Branded content visibility cannot be set to private</span>
         </label>
       </div>
       <div class="interaction-hint" id="interactionHint"></div>
@@ -163,7 +200,7 @@
           <p class="toggle-desc">Let viewers comment on this post</p>
         </div>
         <label class="toggle-switch">
-          <input type="checkbox" id="allowComments" checked />
+          <input type="checkbox" id="allowComments" />
           <span class="toggle-track"></span>
           <span class="toggle-thumb"></span>
         </label>
@@ -176,7 +213,7 @@
           <p class="toggle-desc">Let other creators make a Duet with this video</p>
         </div>
         <label class="toggle-switch">
-          <input type="checkbox" id="allowDuet" checked />
+          <input type="checkbox" id="allowDuet" />
           <span class="toggle-track"></span>
           <span class="toggle-thumb"></span>
         </label>
@@ -189,7 +226,7 @@
           <p class="toggle-desc">Let other creators use clips from this video in their content</p>
         </div>
         <label class="toggle-switch">
-          <input type="checkbox" id="allowStitch" checked />
+          <input type="checkbox" id="allowStitch" />
           <span class="toggle-track"></span>
           <span class="toggle-thumb"></span>
         </label>
@@ -198,43 +235,58 @@
       <hr class="section-divider" />
 
       <!-- 5. Disclose video content -->
-      <label class="field-label"><span class="step-badge">5</span> Disclose video content</label>
-      <p class="disclosure-intro">Let viewers know if this video promotes goods or services. Selecting a disclosure option is required when your content is promotional.</p>
+      <div class="toggle-row" style="border-bottom:none; padding-top:0;">
+        <div class="toggle-info">
+          <p class="toggle-name"><span class="step-badge">5</span> Disclose video content</p>
+          <p class="disclosure-intro">Turn on to let viewers know this video promotes goods or services.</p>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="discloseToggle" onchange="onDisclosureToggle()" />
+          <span class="toggle-track"></span>
+          <span class="toggle-thumb"></span>
+        </label>
+      </div>
 
-      <div class="disclosure-box">
-        <label class="disclosure-check" id="check-yourbrand" onclick="toggleCheck(this,'yourbrand')">
-          <input type="checkbox" />
-          <span class="check-box"><span class="check-mark">&#10003;</span></span>
-          <span class="check-text">
-            <span class="check-label">Your brand</span>
-            <span class="check-sublabel">You are promoting yourself or your own business. e.g. a creator-owned business.</span>
-          </span>
-        </label>
-        <label class="disclosure-check" id="check-branded" onclick="toggleCheck(this,'branded')">
-          <input type="checkbox" />
-          <span class="check-box"><span class="check-mark">&#10003;</span></span>
-          <span class="check-text">
-            <span class="check-label">Branded content</span>
-            <span class="check-sublabel">You are promoting another brand or a third party. This requires a paid partnership disclosure.</span>
-          </span>
-        </label>
+      <div class="disclosure-body" id="disclosureBody">
+        <div class="disclosure-warning" id="disclosureWarning">You need to indicate if your content promotes yourself, a third party, or both.</div>
+        <div class="label-preview" id="labelPreview"></div>
+        <div class="disclosure-box">
+          <label class="disclosure-check" id="check-yourbrand" onclick="toggleCheck(event, this)">
+            <input type="checkbox" />
+            <span class="check-box"><span class="check-mark">&#10003;</span></span>
+            <span class="check-text">
+              <span class="check-label">Your brand</span>
+              <span class="check-sublabel">You are promoting yourself or your own business. e.g. a creator-owned business.</span>
+            </span>
+          </label>
+          <label class="disclosure-check" id="check-branded" onclick="toggleCheck(event, this)">
+            <input type="checkbox" />
+            <span class="check-box"><span class="check-mark">&#10003;</span></span>
+            <span class="check-text">
+              <span class="check-label">Branded content</span>
+              <span class="check-sublabel">You are promoting another brand or a third party. This requires a paid partnership disclosure.</span>
+            </span>
+          </label>
+        </div>
       </div>
 
       <div class="tos-line" id="tosLine">
-        By posting, you agree to TikTok's <a href="#">Music Usage Confirmation</a>
+        By posting, you agree to TikTok's <a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" target="_blank" rel="noopener">Music Usage Confirmation</a>
       </div>
 
-      <hr class="section-divider" />
-      <p class="section-title">Schedule</p>
-      <label class="field-label">Post Date &amp; Time</label>
-      <div class="schedule-row">
-        <input class="schedule-input" type="date" id="schedDate" />
-        <input class="schedule-input" type="time" id="schedTime" />
-      </div>
+      <p class="processing-note">After you post, TikTok may take a few minutes to process your video before it appears on your profile.</p>
 
       <div class="btn-row">
         <button class="btn-secondary" onclick="saveDraft()">Save Draft</button>
-        <button class="btn-primary" onclick="schedulePost()">Schedule Post</button>
+        <button class="btn-primary" id="postBtn" onclick="postNow()" disabled>Post to TikTok</button>
+      </div>
+      <p class="btn-disabled-hint" id="btnHint">Select who can watch this video to continue.</p>
+
+      <div class="status-panel" id="statusPanel">
+        <div class="status-step" id="st-upload"><span class="status-icon">&#8987;</span><span>Uploading video to TikTok...</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="status-step" id="st-process"><span class="status-icon">&#8987;</span><span>TikTok is processing your post - this can take a few minutes...</span></div>
+        <div class="status-step" id="st-done"><span class="status-icon">&#8987;</span><span>Post published! It will appear on your profile shortly.</span></div>
       </div>
 
     </div>
@@ -243,15 +295,41 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(9, 0, 0, 0);
-    document.getElementById('schedDate').value = tomorrow.toISOString().split('T')[0];
-    document.getElementById('schedTime').value = '09:00';
+    let privacyValue = null;      // no default — user must choose (TikTok UX requirement)
+
+    function updatePostButton() {
+      const btn = document.getElementById('postBtn');
+      const hint = document.getElementById('btnHint');
+      const disclosureOn = document.getElementById('discloseToggle').checked;
+      const yourBrand = document.getElementById('check-yourbrand').classList.contains('checked');
+      const branded = document.getElementById('check-branded').classList.contains('checked');
+      const warning = document.getElementById('disclosureWarning');
+
+      let blocked = false;
+      if (!privacyValue) {
+        blocked = true;
+        hint.textContent = 'Select who can watch this video to continue.';
+      } else if (disclosureOn && !yourBrand && !branded) {
+        blocked = true;
+        hint.textContent = 'You need to indicate if your content promotes yourself, a third party, or both.';
+      }
+      warning.classList.toggle('visible', disclosureOn && !yourBrand && !branded);
+      btn.disabled = blocked;
+      hint.classList.toggle('visible', blocked);
+    }
 
     function selectPrivacy(label, value) {
+      if (label.classList.contains('disabled')) return;
+      const branded = document.getElementById('check-branded').classList.contains('checked');
+      if (value === 'onlyme' && branded) {
+        showToast("Visibility for branded content can't be private");
+        return;
+      }
       document.querySelectorAll('.privacy-option').forEach(o => o.classList.remove('selected'));
       label.classList.add('selected');
+      label.querySelector('input').checked = true;
+      privacyValue = value;
+
       const duet   = document.getElementById('row-duet');
       const stitch = document.getElementById('row-stitch');
       const hint   = document.getElementById('interactionHint');
@@ -270,23 +348,82 @@
         stitch.classList.remove('disabled');
         hint.classList.remove('visible');
       }
+      updatePostButton();
     }
 
-    function toggleCheck(label, name) {
+    function onDisclosureToggle() {
+      const on = document.getElementById('discloseToggle').checked;
+      document.getElementById('disclosureBody').classList.toggle('visible', on);
+      if (!on) {
+        ['check-yourbrand','check-branded'].forEach(id => {
+          const el = document.getElementById(id);
+          el.classList.remove('checked');
+          el.querySelector('input').checked = false;
+        });
+        document.getElementById('opt-onlyme').classList.remove('disabled');
+      }
+      refreshDisclosureState();
+    }
+
+    function toggleCheck(e, label) {
+      e.preventDefault();
       label.classList.toggle('checked');
       label.querySelector('input[type="checkbox"]').checked = label.classList.contains('checked');
+      refreshDisclosureState();
+    }
+
+    function refreshDisclosureState() {
+      const disclosureOn = document.getElementById('discloseToggle').checked;
+      const yourBrand = document.getElementById('check-yourbrand').classList.contains('checked');
       const branded = document.getElementById('check-branded').classList.contains('checked');
-      document.getElementById('tosLine').innerHTML = branded
-        ? "By posting, you agree to TikTok's <a href='#'>Branded Content Policy</a> and <a href='#'>Music Usage Confirmation</a>"
-        : "By posting, you agree to TikTok's <a href='#'>Music Usage Confirmation</a>";
+      const labelPrev = document.getElementById('labelPreview');
+      const onlyMe = document.getElementById('opt-onlyme');
+      const tos = document.getElementById('tosLine');
+
+      // Content label preview (required wording)
+      if (disclosureOn && branded) {
+        labelPrev.textContent = "Your video will be labeled as 'Paid partnership'.";
+        labelPrev.classList.add('visible');
+      } else if (disclosureOn && yourBrand) {
+        labelPrev.textContent = "Your video will be labeled as 'Promotional content'.";
+        labelPrev.classList.add('visible');
+      } else {
+        labelPrev.classList.remove('visible');
+      }
+
+      // Branded content cannot be private
+      if (branded) {
+        onlyMe.classList.add('disabled');
+        if (privacyValue === 'onlyme') {
+          privacyValue = null;
+          onlyMe.classList.remove('selected');
+          onlyMe.querySelector('input').checked = false;
+          showToast("Visibility for branded content can't be private - please reselect");
+        }
+      } else {
+        onlyMe.classList.remove('disabled');
+      }
+
+      // Compliance declaration text (required variants)
+      const music = "<a href='https://www.tiktok.com/legal/page/global/music-usage-confirmation/en' target='_blank' rel='noopener'>Music Usage Confirmation</a>";
+      const bcp = "<a href='https://www.tiktok.com/legal/page/global/bc-policy/en' target='_blank' rel='noopener'>Branded Content Policy</a>";
+      tos.innerHTML = branded
+        ? "By posting, you agree to TikTok's " + bcp + " and " + music
+        : "By posting, you agree to TikTok's " + music;
+
+      updatePostButton();
     }
 
     function onFileSelect(input) {
       if (input.files[0]) {
+        const f = input.files[0];
         const el = document.getElementById('fileSelected');
-        el.textContent = '✓ ' + input.files[0].name;
+        el.textContent = '✓ ' + f.name;
         el.style.display = 'block';
         document.getElementById('uploadZone').classList.add('has-file');
+        const player = document.getElementById('previewPlayer');
+        player.src = URL.createObjectURL(f);
+        document.getElementById('videoPreview').classList.add('visible');
       }
     }
 
@@ -294,10 +431,39 @@
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
+      setTimeout(() => t.classList.remove('show'), 3200);
     }
 
-    function schedulePost() { showToast('Post scheduled successfully! ✓'); }
+    function setStep(id, state) {  // state: active | done
+      const el = document.getElementById(id);
+      el.classList.remove('active','done');
+      el.classList.add(state);
+      el.querySelector('.status-icon').innerHTML = state === 'done' ? '&#10003;' : '&#8987;';
+    }
+
+    function postNow() {
+      if (document.getElementById('postBtn').disabled) return;
+      const panel = document.getElementById('statusPanel');
+      panel.classList.add('visible');
+      const fill = document.getElementById('progressFill');
+      setStep('st-upload','active');
+      let pct = 0;
+      const iv = setInterval(() => {
+        pct = Math.min(pct + Math.random()*18, 100);
+        fill.style.width = pct + '%';
+        if (pct >= 100) {
+          clearInterval(iv);
+          setStep('st-upload','done');
+          setStep('st-process','active');
+          setTimeout(() => {
+            setStep('st-process','done');
+            setStep('st-done','done');
+            showToast('Posted to TikTok! ✓');
+          }, 2600);
+        }
+      }, 350);
+    }
+
     function saveDraft() { showToast('Draft saved.'); }
 
     const zone = document.getElementById('uploadZone');
@@ -308,11 +474,11 @@
       const f = e.dataTransfer.files[0];
       if (f) {
         document.getElementById('videoFile').files = e.dataTransfer.files;
-        const el = document.getElementById('fileSelected');
-        el.textContent = '✓ ' + f.name; el.style.display = 'block';
-        zone.classList.add('has-file');
+        onFileSelect(document.getElementById('videoFile'));
       }
     });
+
+    updatePostButton();
   </script>
 </body>
 </html>
